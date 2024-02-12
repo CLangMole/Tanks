@@ -2,18 +2,31 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_PNG
+
 #include "stb_image.h"
 
 #include <sstream>
 #include <fstream>
 #include <iostream>
 
-ResourceManager::ResourceManager(const std::string &path) {
+ResourceManager::shaderProgramsMap ResourceManager::shaderPrograms;
+ResourceManager::texturesMap ResourceManager::textures;
+ResourceManager::spritesMap ResourceManager::sprites;
+ResourceManager::animatedSpritesMap ResourceManager::animatedSprites;
+
+void ResourceManager::set_executablePath(const std::string &path) {
     size_t found = path.find_last_of("/\\");
     resourcePath = path.substr(0, found);
 }
 
-std::string ResourceManager::get_file_string(const std::string &relativeFilePath) const {
+void ResourceManager::unload_all() {
+    shaderPrograms.clear();
+    textures.clear();
+    sprites.clear();
+    animatedSprites.clear();
+}
+
+std::string ResourceManager::get_file_string(const std::string &relativeFilePath){
     std::ifstream in;
     in.open(resourcePath + "/" + relativeFilePath, std::ios::in | std::ios::binary);
 
@@ -159,10 +172,10 @@ std::shared_ptr<Renderer::AnimatedSprite> ResourceManager::get_animatedSprite(co
     return nullptr;
 }
 
-std::shared_ptr<Renderer::Texture2D> ResourceManager::load_textureAtlas(std::string textureName, std::string texturePath, std::vector<std::string> subTextures,
+std::shared_ptr<Renderer::Texture2D> ResourceManager::load_textureAtlas(const std::string& textureName, const std::string& texturePath, const std::vector<std::string>& subTextures,
                                    const unsigned int subTextureWidth, const unsigned int subTextureHeight) {
 
-    auto texture = load_texture(std::move(textureName), std::move(texturePath));
+    auto texture = load_texture(textureName, texturePath);
 
     if (texture){
         const unsigned int textureWidth = texture->get_width();
