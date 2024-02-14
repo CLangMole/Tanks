@@ -13,6 +13,7 @@ ResourceManager::shaderProgramsMap ResourceManager::shaderPrograms;
 ResourceManager::texturesMap ResourceManager::textures;
 ResourceManager::spritesMap ResourceManager::sprites;
 ResourceManager::animatedSpritesMap ResourceManager::animatedSprites;
+std::string ResourceManager::resourcePath;
 
 void ResourceManager::set_executablePath(const std::string &path) {
     size_t found = path.find_last_of("/\\");
@@ -28,11 +29,11 @@ void ResourceManager::unload_all() {
 
 std::string ResourceManager::get_file_string(const std::string &relativeFilePath){
     std::ifstream in;
-    in.open(resourcePath + "/" + relativeFilePath, std::ios::in | std::ios::binary);
+    in.open(resourcePath + "/" + relativeFilePath.c_str(), std::ios::in | std::ios::binary);
 
     if (!in.is_open()){
-        std::cerr << "Failed to open file" << relativeFilePath << std:: endl;
-        return {};
+        std::cerr << "Failed to open file " << relativeFilePath << std:: endl;
+        return std::string {};
     }
 
     std::stringstream buffer;

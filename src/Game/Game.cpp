@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "../Resources/ResourceManager.h"
+#include "GLFW/glfw3.h"
 
 #include <iostream>
 #include <glm/vec2.hpp>
@@ -23,52 +24,87 @@ bool Game::init() {
         return false;
     }
 
-    std::vector<std::string> subTexturesNames{
-            "GreenTank0", "GreenTank1", "GreenTank2", "GreenTank3", "GreenTank4",
-            "SingleBrick", "Bush", "Water", "SinglePlate", "Asphalt",
-            "RedTank0", "RedTank1", "RedTank2", "RedTank3", "RedTank4",
-            "DestroyedBrick", "Brick", "Plate", "Cup", "Box",
-            "BlueTank0", "BlueTank1", "BlueTank2", "BlueTank3", "BlueTank4",
-            "Heart", "HPBarLeft", "HPBarRight", "GreenLine", "RedLine",
-            "SmallBullet0", "SmallBullet1", "SmallBullet2", "SmallBullet3", "SmallBullet4", "SmallBullet5",
-            "GreenTankTower", "GreenTankWithoutTower0", "GreenTankWithoutTower1", "GreenTankWithoutTower2",
-            "GreenTankWithoutTower3",
-            "BigBullet0", "BigBullet1", "BigBullet2", "BigBullet3", "BigBullet4", "BigBullet5",
-            "Empty1", "Empty2", "DestroyedGreenTank", "DestroyedRedTank", "DestroyedBlueTank"
-    };
-
-    auto textureAtlas = ResourceManager::load_textureAtlas("DefaultTextureAtlas", "res/textures/TankTownTiles.png",
-                                                           subTexturesNames, 32, 32);
-
-    auto animatedSprite = ResourceManager::load_animatedSprite("DefaultAnimatedSprite", "DefaultTextureAtlas",
-                                                               "DefaultSpriteShader", 100.0f, 100.0f, "GreenTank0");
-    animatedSprite->set_position(glm::vec2(300, 300));
-
-    std::vector<std::pair<std::string, uint64_t>> greenTankState;
-    greenTankState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTank0", 1000000000));
-    greenTankState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTank1", 1000000000));
-    greenTankState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTank2", 1000000000));
-    greenTankState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTank3", 1000000000));
-    greenTankState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTank4", 1000000000));
-
-    animatedSprite->add_state("GreenTank", std::move(greenTankState));
-    animatedSprite->set_state("GreenTank");
-
     glm::mat4 projectionMatrix = glm::ortho(0.0f, static_cast<float>(windowSize.x), 0.0f, static_cast<float>(windowSize.y), -100.0f, 100.0f);
 
     spriteShaderProgram->use();
     spriteShaderProgram->set_int("tex", 0);
     spriteShaderProgram->set_matrix4("projectionMat", projectionMatrix);
 
+    std::vector<std::string> tankSubTexturesNames{
+        "RedTankTop", "RedTankBottom", "RedTankRight", "RedTankLeft",
+        "BlueTankTop", "BlueTankBottom", "BlueTankRight", "BlueTankLeft",
+        "GreenTankTop", "GreenTankBottom", "GreenTankRight", "GreenTankLeft",
+        "YellowTankTop", "YellowTankBottom", "YellowTankRight", "YellowTankLeft"
+    };
+
+    auto tanksTextures = ResourceManager::load_textureAtlas("TanksTextureAtlas", "res/textures/TanksTiles.png",
+                                                            tankSubTexturesNames, 16, 16);
+    auto tankSprite = ResourceManager::load_animatedSprite("GreenTank", "TanksTextureAtlas", "DefaultSpriteShader",
+                                                           64.0f, 64.0f, "GreenTankTop");
+
+#pragma region Tank states
+
+    std::vector<std::pair<std::string, uint64_t>> greenTankTopState;
+    greenTankTopState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankTop", 500000000));
+
+    std::vector<std::pair<std::string, uint64_t>> greenTankBottomState;
+    greenTankBottomState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankBottom", 500000000));
+
+    std::vector<std::pair<std::string, uint64_t>> greenTankLeftState;
+    greenTankLeftState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankLeft", 500000000));
+
+    std::vector<std::pair<std::string, uint64_t>> greenTankRightState;
+    greenTankRightState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankRight", 500000000));
+
+    tankSprite->add_state("TopState", std::move(greenTankTopState));
+    tankSprite->add_state("BottomState", std::move(greenTankBottomState));
+    tankSprite->add_state("LeftState", std::move(greenTankLeftState));
+    tankSprite->add_state("RightState", std::move(greenTankRightState));
+
+    tankSprite->set_state("TopState");
+
+#pragma endregion
+
+    tank = std::make_unique<Tank>(tankSprite, 0.0000001f, glm::vec2(100.0f, 100.0f));
     return true;
 }
 
 void Game::render() {
-    ResourceManager::get_animatedSprite("DefaultAnimatedSprite")->render();
+    if (!tank){
+        std::cerr << "Can't find the tank" << std::endl;
+        return;
+    }
+
+    tank->render();
 }
 
 void Game::update(const uint64_t delta) {
-    ResourceManager::get_animatedSprite("DefaultAnimatedSprite")->update(delta);
+    if (!tank){
+        std::cerr << "Can't find the tank" << std::endl;
+        return;
+    }
+
+    if (keys[GLFW_KEY_W]){
+        tank->set_rotation(Tank::Rotation::Top);
+        tank->move(true);
+    }
+    else if (keys[GLFW_KEY_S]){
+        tank->set_rotation(Tank::Rotation::Bottom);
+        tank->move(true);
+    }
+    else if (keys[GLFW_KEY_A]){
+        tank->set_rotation(Tank::Rotation::Left);
+        tank->move(true);
+    }
+    else if (keys[GLFW_KEY_D]){
+        tank->set_rotation(Tank::Rotation::Right);
+        tank->move(true);
+    }
+    else{
+        tank->move(false);
+    }
+
+    tank->update(delta);
 }
 
 void Game::set_key(const int key, const int action) {

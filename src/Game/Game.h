@@ -3,6 +3,9 @@
 #include <array>
 #include <cstdint>
 #include <glm/vec2.hpp>
+#include <memory>
+
+#include "Tank.h"
 
 class Game
 {
@@ -26,4 +29,6 @@ private:
     GameState currentGameState;
 
     glm::ivec2 windowSize;
+
+    std::unique_ptr<Tank> tank;
 };
