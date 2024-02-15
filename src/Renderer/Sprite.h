@@ -7,18 +7,21 @@
 
 #include "Texture2D.h"
 #include "ShaderProgram.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "VertexArray.h"
 
 namespace Renderer
 {
     class Sprite
     {
     public:
-        Sprite(std::shared_ptr<Texture2D> texture2D, std::string initialSubTexture2D,
+        Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialSubTexture2D,
                std::shared_ptr<ShaderProgram> shader,
                const glm::vec2 &position = glm::vec2(0.0f), const glm::vec2 &scale = glm::vec2(1.0f),
                const float rotation = 0.0f);
 
-        ~Sprite();
+        ~Sprite() = default;
 
         Sprite(const Sprite&) = delete;
         Sprite& operator=(const Sprite&) = delete;
@@ -36,8 +39,10 @@ namespace Renderer
         glm::vec2 scale;
         float rotation;
 
-        GLuint vao;
-        GLuint vertexPositionVBO;
-        GLuint texturePositionVBO;
+        VertexArray vertexArray;
+
+        VertexBuffer vertexPositionBuffer;
+        VertexBuffer texturePositionBuffer;
+        IndexBuffer elementBuffer;
     };
 }

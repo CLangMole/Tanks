@@ -55,15 +55,11 @@ void AnimatedSprite::render() const {
                 subTexture.leftBottomUV.x, subTexture.leftBottomUV.y,
                 subTexture.leftBottomUV.x, subTexture.rightTopUV.y,
                 subTexture.rightTopUV.x, subTexture.rightTopUV.y,
-
-                subTexture.rightTopUV.x, subTexture.rightTopUV.y,
-                subTexture.rightTopUV.x, subTexture.leftBottomUV.y,
-                subTexture.leftBottomUV.x, subTexture.leftBottomUV.y
+                subTexture.rightTopUV.x, subTexture.leftBottomUV.y
         };
 
-        glBindBuffer(GL_ARRAY_BUFFER, texturePositionVBO);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(texturePosition), &texturePosition);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        texturePositionBuffer.update(texturePosition, 2 * 4 * sizeof(GLfloat));
         isDirty = false;
     }
 

@@ -5,7 +5,7 @@
 
 using namespace Renderer;
 
-Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, std::string initialSubTexture2D,
+Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialSubTexture2D,
                std::shared_ptr<ShaderProgram> shader,
                const glm::vec2 &position, const glm::vec2 &scale, const float rotation)
                : texture2D(std::move(texture2D)), shader(std::move(shader)), position(position), scale(scale), rotation(rotation){
@@ -14,47 +14,39 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, std::string initialSubTextu
             0.0f, 0.0f,
             0.0f, 1.0f,
             1.0f, 1.0f,
-
-            1.0f, 1.0f,
-            1.0f, 0.0f,
-            0.0f, 0.0f
+            1.0f, 0.0f
     };
 
-    Texture2D::SubTexture2D subTexture = this->texture2D->get_subTexture(std::move(initialSubTexture2D));
+    Texture2D::SubTexture2D subTexture = this->texture2D->get_subTexture(initialSubTexture2D);
 
     const GLfloat texturePosition[]{
             subTexture.leftBottomUV.x, subTexture.leftBottomUV.y,
             subTexture.leftBottomUV.x, subTexture.rightTopUV.y,
             subTexture.rightTopUV.x, subTexture.rightTopUV.y,
-
-            subTexture.rightTopUV.x, subTexture.rightTopUV.y,
-            subTexture.rightTopUV.x, subTexture.leftBottomUV.y,
-            subTexture.leftBottomUV.x, subTexture.leftBottomUV.y
+            subTexture.rightTopUV.x, subTexture.leftBottomUV.y
     };
 
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+    const GLuint indexes[]{
+        0, 1, 2,
+        2, 3, 0
+    };
 
-    glGenBuffers(1, &vertexPositionVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexPositionVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPosition), &vertexPosition, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    vertexPositionBuffer.init(vertexPosition, 2 * 4 * sizeof(GLfloat));
 
-    glGenBuffers(1, &texturePositionVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, texturePositionVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(texturePosition), &texturePosition, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    VertexBufferLayout vertexPositionBufferLayout;
+    vertexPositionBufferLayout.add_layoutElement_float(2, false);
+    vertexArray.add_buffer(vertexPositionBuffer, vertexPositionBufferLayout);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-}
+    texturePositionBuffer.init(texturePosition, 2 * 4 * sizeof(GLfloat));
 
-Sprite::~Sprite() {
-    glDeleteBuffers(1, &vertexPositionVBO);
-    glDeleteBuffers(1, &texturePositionVBO);
-    glDeleteVertexArrays(1, &vao);
+    VertexBufferLayout texturePositionBufferLayout;
+    texturePositionBufferLayout.add_layoutElement_float(2, false);
+    vertexArray.add_buffer(texturePositionBuffer, texturePositionBufferLayout);
+
+    elementBuffer.init(indexes, 6 * sizeof(GLuint));
+
+    vertexArray.unbind();
+    elementBuffer.unbind();
 }
 
 void Sprite::render() const {
@@ -69,15 +61,16 @@ void Sprite::render() const {
 
     modelMatrix = glm::scale(modelMatrix, glm::vec3(scale, 0.0f));
 
-    glBindVertexArray(vao);
+    vertexArray.bind();
 
     shader->set_matrix4("modelMat", modelMatrix);
 
     glActiveTexture(GL_TEXTURE0);
     texture2D->bind();
-    glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    glBindVertexArray(0);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+    vertexArray.unbind();
 }
 
 void Sprite::set_position(const glm::vec2 &position) {

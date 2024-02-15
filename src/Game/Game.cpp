@@ -32,9 +32,16 @@ bool Game::init() {
 
     std::vector<std::string> tankSubTexturesNames{
         "RedTankTop", "RedTankBottom", "RedTankRight", "RedTankLeft",
+        "RedTankTop1", "RedTankBottom1", "RedTankRight1", "RedTankLeft1",
+
         "BlueTankTop", "BlueTankBottom", "BlueTankRight", "BlueTankLeft",
+        "BlueTankTop1", "BlueTankBottom1", "BlueTankRight1", "BlueTankLeft1",
+
         "GreenTankTop", "GreenTankBottom", "GreenTankRight", "GreenTankLeft",
-        "YellowTankTop", "YellowTankBottom", "YellowTankRight", "YellowTankLeft"
+        "GreenTankTop1", "GreenTankBottom1", "GreenTankRight1", "GreenTankLeft1",
+
+        "YellowTankTop", "YellowTankBottom", "YellowTankRight", "YellowTankLeft",
+        "YellowTankTop1", "YellowTankBottom1", "YellowTankRight1", "YellowTankLeft1"
     };
 
     auto tanksTextures = ResourceManager::load_textureAtlas("TanksTextureAtlas", "res/textures/TanksTiles.png",
@@ -45,16 +52,20 @@ bool Game::init() {
 #pragma region Tank states
 
     std::vector<std::pair<std::string, uint64_t>> greenTankTopState;
-    greenTankTopState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankTop", 500000000));
+    greenTankTopState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankTop", 100000000));
+    greenTankTopState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankTop1", 100000000));
 
     std::vector<std::pair<std::string, uint64_t>> greenTankBottomState;
-    greenTankBottomState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankBottom", 500000000));
+    greenTankBottomState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankBottom", 100000000));
+    greenTankBottomState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankBottom1", 100000000));
 
     std::vector<std::pair<std::string, uint64_t>> greenTankLeftState;
-    greenTankLeftState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankLeft", 500000000));
+    greenTankLeftState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankLeft", 100000000));
+    greenTankLeftState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankLeft1", 100000000));
 
     std::vector<std::pair<std::string, uint64_t>> greenTankRightState;
-    greenTankRightState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankRight", 500000000));
+    greenTankRightState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankRight", 100000000));
+    greenTankRightState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankRight1", 100000000));
 
     tankSprite->add_state("TopState", std::move(greenTankTopState));
     tankSprite->add_state("BottomState", std::move(greenTankBottomState));
