@@ -7,20 +7,17 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-Game::Game(const glm::ivec2 &windowSize) : currentGameState(GameState::Active), windowSize(windowSize){
+Game::Game(const glm::ivec2 &windowSize) : currentGameState(GameState::Active), windowSize(windowSize), keys(){
     keys.fill(false);
 }
 
-Game::~Game() {
-
-}
-
 bool Game::init() {
-    auto spriteShaderProgram = ResourceManager::load_shaders("DefaultSpriteShader", "res/shaders/vSprite.txt",
-                                                             "res/shaders/fSprite.txt");
+    ResourceManager::load_json("res/resources.json");
 
-    if (!spriteShaderProgram) {
-        std::cerr << "Can't create a shader program " << "DefaultSpriteShader" << std::endl;
+    auto spriteShaderProgram = ResourceManager::get_shaderProgram("spriteShader");
+    if (!spriteShaderProgram)
+    {
+        std::cerr << "Can't find shader program: " << "spriteShader" << std::endl;
         return false;
     }
 
@@ -30,51 +27,19 @@ bool Game::init() {
     spriteShaderProgram->set_int("tex", 0);
     spriteShaderProgram->set_matrix4("projectionMat", projectionMatrix);
 
-    std::vector<std::string> tankSubTexturesNames{
-        "RedTankTop", "RedTankBottom", "RedTankRight", "RedTankLeft",
-        "RedTankTop1", "RedTankBottom1", "RedTankRight1", "RedTankLeft1",
+    auto tanksTextures = ResourceManager::get_texture("tanksTextureAtlas");
+    if (!tanksTextures)
+    {
+        std::cerr << "Can't find texture: " << "tanksTextureAtlas" << std::endl;
+        return false;
+    }
 
-        "BlueTankTop", "BlueTankBottom", "BlueTankRight", "BlueTankLeft",
-        "BlueTankTop1", "BlueTankBottom1", "BlueTankRight1", "BlueTankLeft1",
-
-        "GreenTankTop", "GreenTankBottom", "GreenTankRight", "GreenTankLeft",
-        "GreenTankTop1", "GreenTankBottom1", "GreenTankRight1", "GreenTankLeft1",
-
-        "YellowTankTop", "YellowTankBottom", "YellowTankRight", "YellowTankLeft",
-        "YellowTankTop1", "YellowTankBottom1", "YellowTankRight1", "YellowTankLeft1"
-    };
-
-    auto tanksTextures = ResourceManager::load_textureAtlas("TanksTextureAtlas", "res/textures/TanksTiles.png",
-                                                            tankSubTexturesNames, 16, 16);
-    auto tankSprite = ResourceManager::load_animatedSprite("GreenTank", "TanksTextureAtlas", "DefaultSpriteShader",
-                                                           64.0f, 64.0f, "GreenTankTop");
-
-#pragma region Tank states
-
-    std::vector<std::pair<std::string, uint64_t>> greenTankTopState;
-    greenTankTopState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankTop", 100000000));
-    greenTankTopState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankTop1", 100000000));
-
-    std::vector<std::pair<std::string, uint64_t>> greenTankBottomState;
-    greenTankBottomState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankBottom", 100000000));
-    greenTankBottomState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankBottom1", 100000000));
-
-    std::vector<std::pair<std::string, uint64_t>> greenTankLeftState;
-    greenTankLeftState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankLeft", 100000000));
-    greenTankLeftState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankLeft1", 100000000));
-
-    std::vector<std::pair<std::string, uint64_t>> greenTankRightState;
-    greenTankRightState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankRight", 100000000));
-    greenTankRightState.emplace_back(std::make_pair<std::string, uint64_t>("GreenTankRight1", 100000000));
-
-    tankSprite->add_state("TopState", std::move(greenTankTopState));
-    tankSprite->add_state("BottomState", std::move(greenTankBottomState));
-    tankSprite->add_state("LeftState", std::move(greenTankLeftState));
-    tankSprite->add_state("RightState", std::move(greenTankRightState));
-
-    tankSprite->set_state("TopState");
-
-#pragma endregion
+    auto tankSprite = ResourceManager::get_animatedSprite("greenTank");
+    if (!tankSprite)
+    {
+        std::cerr << "Can't find animated sprite: " << "greenTank" << std::endl;
+        return false;
+    }
 
     tank = std::make_unique<Tank>(tankSprite, 0.0000001f, glm::vec2(100.0f, 100.0f));
     return true;

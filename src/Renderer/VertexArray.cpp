@@ -1,6 +1,6 @@
 #include "VertexArray.h"
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 VertexArray::VertexArray(){
     glGenVertexArrays(1, &index);
@@ -10,12 +10,12 @@ VertexArray::~VertexArray() {
     glDeleteVertexArrays(1, &index);
 }
 
-VertexArray::VertexArray(Renderer::VertexArray &&vertexArray) noexcept {
+VertexArray::VertexArray(RenderEngine::VertexArray &&vertexArray) noexcept {
     index = vertexArray.index;
     vertexArray.index = 0;
 }
 
-VertexArray &Renderer::VertexArray::operator=(Renderer::VertexArray &&vertexArray) noexcept {
+VertexArray &RenderEngine::VertexArray::operator=(RenderEngine::VertexArray &&vertexArray) noexcept {
     if (this == &vertexArray){
         return *this;
     }

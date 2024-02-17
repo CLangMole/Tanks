@@ -1,6 +1,6 @@
 #include "AnimatedSprite.h"
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 AnimatedSprite::AnimatedSprite(std::shared_ptr<Texture2D> texture2D,
                                          std::string initialSubTexture2D,
@@ -19,7 +19,7 @@ void AnimatedSprite::set_state(const std::string& newState) {
     auto it = statesMap.find(newState);
 
     if (it == statesMap.end()){
-        std::cout << "Can't find animation state " << newState << std::endl;
+        std::cerr << "Can't find animation state " << newState << std::endl;
         return;
     }
 

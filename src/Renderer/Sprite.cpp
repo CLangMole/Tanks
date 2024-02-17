@@ -1,9 +1,10 @@
 #include "Sprite.h"
+#include "Renderer.h"
 
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialSubTexture2D,
                std::shared_ptr<ShaderProgram> shader,
@@ -43,10 +44,10 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialS
     texturePositionBufferLayout.add_layoutElement_float(2, false);
     vertexArray.add_buffer(texturePositionBuffer, texturePositionBufferLayout);
 
-    elementBuffer.init(indexes, 6 * sizeof(GLuint));
+    indexBuffer.init(indexes, 6);
 
     vertexArray.unbind();
-    elementBuffer.unbind();
+    indexBuffer.unbind();
 }
 
 void Sprite::render() const {
@@ -61,16 +62,12 @@ void Sprite::render() const {
 
     modelMatrix = glm::scale(modelMatrix, glm::vec3(scale, 0.0f));
 
-    vertexArray.bind();
-
     shader->set_matrix4("modelMat", modelMatrix);
 
     glActiveTexture(GL_TEXTURE0);
     texture2D->bind();
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-
-    vertexArray.unbind();
+    Renderer::draw(vertexArray, indexBuffer, *shader);
 }
 
 void Sprite::set_position(const glm::vec2 &position) {

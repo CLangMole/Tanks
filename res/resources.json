@@ -1,0 +1,115 @@
+{
+  "shaders": [
+    {
+      "name": "spriteShader",
+      "vertexPath": "res/shaders/vSprite.txt",
+      "fragmentPath": "res/shaders/fSprite.txt"
+    }
+  ],
+  "textureAtlases": [
+    {
+      "name": "tanksTextureAtlas",
+      "path": "res/textures/TanksTiles.png",
+      "subTextureNames": [
+        "RedTankTop",
+        "RedTankBottom",
+        "RedTankRight",
+        "RedTankLeft",
+        "RedTankTop1",
+        "RedTankBottom1",
+        "RedTankRight1",
+        "RedTankLeft1",
+        "BlueTankTop",
+        "BlueTankBottom",
+        "BlueTankRight",
+        "BlueTankLeft",
+        "BlueTankTop1",
+        "BlueTankBottom1",
+        "BlueTankRight1",
+        "BlueTankLeft1",
+        "GreenTankTop",
+        "GreenTankBottom",
+        "GreenTankRight",
+        "GreenTankLeft",
+        "GreenTankTop1",
+        "GreenTankBottom1",
+        "GreenTankRight1",
+        "GreenTankLeft1",
+        "YellowTankTop",
+        "YellowTankBottom",
+        "YellowTankRight",
+        "YellowTankLeft",
+        "YellowTankTop1",
+        "YellowTankBottom1",
+        "YellowTankRight1",
+        "YellowTankLeft1"
+      ],
+      "subTextureWidth": 16,
+      "subTextureHeight": 16
+    }
+  ],
+  "animatedSprites": [
+    {
+      "spriteName": "greenTank",
+      "textureAtlasName": "tanksTextureAtlas",
+      "shaderName": "spriteShader",
+      "width": 100,
+      "height": 100,
+      "subTextureName": "GreenTankTop",
+      "states": [
+        {
+          "stateName": "TopState",
+          "frames": [
+            {
+              "frameName": "GreenTankTop",
+              "duration": 100000000
+            },
+            {
+              "frameName": "GreenTankTop1",
+              "duration": 100000000
+            }
+          ]
+        },
+        {
+          "stateName": "BottomState",
+          "frames": [
+            {
+              "frameName": "GreenTankBottom",
+              "duration": 100000000
+            },
+            {
+              "frameName": "GreenTankBottom1",
+              "duration": 100000000
+            }
+          ]
+        },
+        {
+          "stateName": "LeftState",
+          "frames": [
+            {
+              "frameName": "GreenTankLeft",
+              "duration": 100000000
+            },
+            {
+              "frameName": "GreenTankLeft1",
+              "duration": 100000000
+            }
+          ]
+        },
+        {
+          "stateName": "RightState",
+          "frames": [
+            {
+              "frameName": "GreenTankRight",
+              "duration": 100000000
+            },
+            {
+              "frameName": "GreenTankRight1",
+              "duration": 100000000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

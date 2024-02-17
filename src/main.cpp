@@ -1,7 +1,10 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+
 #include "Resources/ResourceManager.h"
 #include "Game/Game.h"
+#include "Renderer/Renderer.h"
+
 #include <chrono>
 
 using namespace std;
@@ -21,7 +24,7 @@ void glfwWindowSizeCallback(GLFWwindow* pWindow, int height, int width){
     windowSize.y = height;
     windowSize.x = width;
 
-    glViewport(0, 0, width, height);
+    RenderEngine::Renderer::set_viewport(width, height);
 }
 
 int main(int argc, char **argv) {
@@ -55,7 +58,7 @@ int main(int argc, char **argv) {
     glfwSetKeyCallback(pWindow, glfwKeyCallback);
     glfwSetWindowSizeCallback(pWindow, glfwWindowSizeCallback);
 
-    glClearColor(0, 0, 0, 1);
+    RenderEngine::Renderer::set_clearColor(0, 0, 0, 1);
 
     {
         ResourceManager::set_executablePath(argv[0]);
@@ -63,18 +66,18 @@ int main(int argc, char **argv) {
         auto lastTime = std::chrono::high_resolution_clock::now();
 
         while (!glfwWindowShouldClose(pWindow)) {
+            glfwPollEvents();
             auto currentTime = std::chrono::high_resolution_clock::now();
             uint64_t delta = chrono::duration_cast<std::chrono::nanoseconds>(currentTime - lastTime).count();
             lastTime = currentTime;
 
             game.update(delta);
 
-            glClear(GL_COLOR_BUFFER_BIT);
+            RenderEngine::Renderer::clear();
 
             game.render();
 
             glfwSwapBuffers(pWindow);
-            glfwPollEvents();
         }
 
         ResourceManager::unload_all();

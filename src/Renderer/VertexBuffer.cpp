@@ -1,6 +1,6 @@
 #include "VertexBuffer.h"
 
-using namespace Renderer;
+using namespace RenderEngine;
 
 VertexBuffer::VertexBuffer() : index(0) {
 
@@ -10,12 +10,12 @@ VertexBuffer::~VertexBuffer() {
     glDeleteBuffers(1, &index);
 }
 
-VertexBuffer::VertexBuffer(Renderer::VertexBuffer &&vertexBuffer) noexcept {
+VertexBuffer::VertexBuffer(RenderEngine::VertexBuffer &&vertexBuffer) noexcept {
     index = vertexBuffer.index;
     vertexBuffer.index = 0;
 }
 
-VertexBuffer &Renderer::VertexBuffer::operator=(Renderer::VertexBuffer &&vertexBuffer) noexcept {
+VertexBuffer &RenderEngine::VertexBuffer::operator=(RenderEngine::VertexBuffer &&vertexBuffer) noexcept {
     if (this == &vertexBuffer){
         return *this;
     }

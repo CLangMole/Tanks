@@ -10,7 +10,7 @@ add_executable(Tanks src/main.cpp
         src/Renderer/Texture2D.cpp src/Renderer/Texture2D.h
         src/Renderer/Sprite.cpp src/Renderer/Sprite.h
         src/Renderer/AnimatedSprite.cpp src/Renderer/AnimatedSprite.h
-        src/Game/Game.cpp src/Game/Game.h src/Game/Tank.cpp src/Game/Tank.h src/Renderer/VertexBuffer.cpp src/Renderer/VertexBuffer.h src/Renderer/IndexBuffer.cpp src/Renderer/IndexBuffer.h src/Renderer/VertexArray.cpp src/Renderer/VertexArray.h src/Renderer/VertexBufferLayout.cpp src/Renderer/VertexBufferLayout.h)
+        src/Game/Game.cpp src/Game/Game.h src/Game/Tank.cpp src/Game/Tank.h src/Renderer/VertexBuffer.cpp src/Renderer/VertexBuffer.h src/Renderer/IndexBuffer.cpp src/Renderer/IndexBuffer.h src/Renderer/VertexArray.cpp src/Renderer/VertexArray.h src/Renderer/VertexBufferLayout.cpp src/Renderer/VertexBufferLayout.h src/Renderer/Renderer.cpp src/Renderer/Renderer.h)
 
 add_subdirectory(external/glfw-3.3.9)
 target_link_libraries(Tanks glfw)
@@ -21,6 +21,7 @@ target_link_libraries(Tanks glad)
 target_include_directories(Tanks PUBLIC "${CMAKE_SOURCE_DIR}/external/glad/include")
 
 include_directories(external/glm)
+include_directories(external/RapidJSON/include)
 
 set_target_properties(Tanks PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 

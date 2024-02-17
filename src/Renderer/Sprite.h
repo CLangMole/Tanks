@@ -11,7 +11,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 
-namespace Renderer
+namespace RenderEngine
 {
     class Sprite
     {
@@ -43,6 +43,6 @@ namespace Renderer
 
         VertexBuffer vertexPositionBuffer;
         VertexBuffer texturePositionBuffer;
-        IndexBuffer elementBuffer;
+        IndexBuffer indexBuffer;
     };
 }

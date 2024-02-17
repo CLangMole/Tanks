@@ -17,7 +17,7 @@ public:
         Right
     };
 #pragma endregion
-    Tank(std::shared_ptr<Renderer::AnimatedSprite> sprite, const float velocity, const glm::vec2& position);
+    Tank(std::shared_ptr<RenderEngine::AnimatedSprite> sprite, const float velocity, const glm::vec2& position);
 
     void render() const;
     void update(const uint64_t delta);
@@ -25,7 +25,7 @@ public:
     void set_rotation(const Rotation rotation);
     void move(const bool isMoving);
 private:
-    std::shared_ptr<Renderer::AnimatedSprite> sprite;
+    std::shared_ptr<RenderEngine::AnimatedSprite> sprite;
 
     float velocity;
     glm::vec2 position;

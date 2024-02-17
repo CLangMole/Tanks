@@ -10,12 +10,12 @@
 class Game
 {
 public:
-    Game(const glm::ivec2 &windowSize);
-    ~Game();
+    explicit Game(const glm::ivec2 &windowSize);
+    ~Game() = default;
 
     void render();
-    void update(const uint64_t delta);
-    void set_key(const int key, const int action);
+    void update(uint64_t delta);
+    void set_key(int key, int action);
     bool init();
 
 private:

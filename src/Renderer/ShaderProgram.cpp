@@ -2,7 +2,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "ShaderProgram.h"
 
-namespace Renderer{
+namespace RenderEngine{
     ShaderProgram::ShaderProgram(const std::string &vertexShader, const std::string &fragmentShader){
         GLuint vertexShaderID;
         if(!create_shader(vertexShader, GL_VERTEX_SHADER, vertexShaderID)){

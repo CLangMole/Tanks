@@ -1,6 +1,6 @@
 #include "Tank.h"
 
-Tank::Tank(std::shared_ptr<Renderer::AnimatedSprite> sprite, const float velocity, const glm::vec2 &position)
+Tank::Tank(std::shared_ptr<RenderEngine::AnimatedSprite> sprite, const float velocity, const glm::vec2 &position)
         : sprite(std::move(sprite)), velocity(velocity), position(position),
           currentRotation(Rotation::Top), isMoving(false), moveOffset(glm::vec2(0.0f, 1.0f)) {
     this->sprite->set_position(position);

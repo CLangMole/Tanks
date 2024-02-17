@@ -3,7 +3,7 @@
 #include "Sprite.h"
 #include <vector>
 
-namespace Renderer
+namespace RenderEngine
 {
     class AnimatedSprite : public Sprite
     {
