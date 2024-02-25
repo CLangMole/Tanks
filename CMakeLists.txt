@@ -9,8 +9,7 @@ add_executable(Tanks src/main.cpp
         src/Resources/stb_image.h
         src/Renderer/Texture2D.cpp src/Renderer/Texture2D.h
         src/Renderer/Sprite.cpp src/Renderer/Sprite.h
-        src/Renderer/AnimatedSprite.cpp src/Renderer/AnimatedSprite.h
-        src/Game/Game.cpp src/Game/Game.h src/Game/Tank.cpp src/Game/Tank.h src/Renderer/VertexBuffer.cpp src/Renderer/VertexBuffer.h src/Renderer/IndexBuffer.cpp src/Renderer/IndexBuffer.h src/Renderer/VertexArray.cpp src/Renderer/VertexArray.h src/Renderer/VertexBufferLayout.cpp src/Renderer/VertexBufferLayout.h src/Renderer/Renderer.cpp src/Renderer/Renderer.h)
+        src/Game/Game.cpp src/Game/Game.h src/Game/GameObjects/Tank.cpp src/Game/GameObjects/Tank.h src/Renderer/VertexBuffer.cpp src/Renderer/VertexBuffer.h src/Renderer/IndexBuffer.cpp src/Renderer/IndexBuffer.h src/Renderer/VertexArray.cpp src/Renderer/VertexArray.h src/Renderer/VertexBufferLayout.cpp src/Renderer/VertexBufferLayout.h src/Renderer/Renderer.cpp src/Renderer/Renderer.h src/Game/GameObjects/IGameObject.cpp src/Game/GameObjects/IGameObject.h src/Game/Level.cpp src/Game/Level.h src/Game/GameObjects/BrickWall.cpp src/Game/GameObjects/BrickWall.h src/Renderer/SpriteAnimator.cpp src/Renderer/SpriteAnimator.h)
 
 add_subdirectory(external/glfw-3.3.9)
 target_link_libraries(Tanks glfw)

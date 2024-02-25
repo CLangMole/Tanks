@@ -16,33 +16,52 @@ namespace RenderEngine
     class Sprite
     {
     public:
+
+#pragma region FrameDescription
+
+        struct FrameDescription
+        {
+            FrameDescription(const glm::vec2 leftBottomUV, glm::vec2 rightTopUV, double duration) : leftBottomUV(
+                    leftBottomUV), rightTopUV(rightTopUV), duration(duration) {
+
+            }
+
+            glm::vec2 leftBottomUV;
+            glm::vec2 rightTopUV;
+
+            double duration;
+        };
+
+#pragma endregion
+
         Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialSubTexture2D,
-               std::shared_ptr<ShaderProgram> shader,
-               const glm::vec2 &position = glm::vec2(0.0f), const glm::vec2 &scale = glm::vec2(1.0f),
-               const float rotation = 0.0f);
+               std::shared_ptr<ShaderProgram> shader);
 
         ~Sprite() = default;
 
-        Sprite(const Sprite&) = delete;
-        Sprite& operator=(const Sprite&) = delete;
+        Sprite(const Sprite &) = delete;
 
-        virtual void render() const;
+        Sprite &operator=(const Sprite &) = delete;
 
-        void set_position(const glm::vec2& position);
-        void set_scale(const glm::vec2& scale);
-        void set_rotation(const float rotation);
-    protected:
+        void
+        render(const glm::vec2 &position, const glm::vec2 &scale, float rotation, size_t frame = 0) const;
+
+        void addFrames(std::vector<FrameDescription> frames);
+
+        double get_frameDuration(size_t currentFrame) const;
+
+        size_t get_framesCount() const;
+
+    private:
         std::shared_ptr<Texture2D> texture2D;
         std::shared_ptr<ShaderProgram> shader;
-
-        glm::vec2 position;
-        glm::vec2 scale;
-        float rotation;
-
         VertexArray vertexArray;
 
         VertexBuffer vertexPositionBuffer;
         VertexBuffer texturePositionBuffer;
         IndexBuffer indexBuffer;
+
+        std::vector<FrameDescription> framesDescriptions;
+        mutable size_t lastFrame;
     };
 }

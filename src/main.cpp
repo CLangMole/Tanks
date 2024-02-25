@@ -9,22 +9,37 @@
 
 using namespace std;
 
-glm::ivec2 windowSize(640, 480);
-Game game(windowSize);
+glm::ivec2 windowSize(13 * 16, 14 * 16);
+std::unique_ptr<Game> game = std::make_unique<Game>(windowSize);
 
-void glfwKeyCallback(GLFWwindow* pWindow, int key, int scanCode, int action, int mode){
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
+void glfwKeyCallback(GLFWwindow *pWindow, int key, int scanCode, int action, int mode) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
         glfwSetWindowShouldClose(pWindow, GL_TRUE);
     }
 
-    game.set_key(key, action);
+    game->set_key(key, action);
 }
 
-void glfwWindowSizeCallback(GLFWwindow* pWindow, int height, int width){
+void glfwWindowSizeCallback(GLFWwindow *pWindow, int height, int width) {
     windowSize.y = height;
     windowSize.x = width;
 
-    RenderEngine::Renderer::set_viewport(width, height);
+    const float aspectRatio = 13.0f / 14.0f;
+
+    unsigned int viewportWidth = windowSize.x;
+    unsigned int viewportHeight = windowSize.y;
+
+    unsigned int leftOffset = 0;
+    unsigned int bottomOffset = 0;
+
+    if (static_cast<float>(windowSize.x) / static_cast<float>(windowSize.y) > aspectRatio) {
+        viewportWidth = static_cast<unsigned int>(static_cast<float>(windowSize.y) * aspectRatio);
+        leftOffset = (windowSize.x - viewportWidth) / 2;
+    } else {
+        viewportHeight = static_cast<unsigned int>(static_cast<float>(windowSize.x) / aspectRatio);
+        bottomOffset = (windowSize.y - viewportHeight) / 2;
+    }
+    RenderEngine::Renderer::set_viewport(viewportWidth, viewportHeight, leftOffset, bottomOffset);
 }
 
 int main(int argc, char **argv) {
@@ -39,7 +54,7 @@ int main(int argc, char **argv) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow *pWindow = glfwCreateWindow(640, 480, "MyTest", nullptr, nullptr);
+    GLFWwindow *pWindow = glfwCreateWindow(windowSize.x, windowSize.y, "Tanks", nullptr, nullptr);
 
     if (!pWindow) {
         cout << "Failed to create a window" << endl;
@@ -62,24 +77,24 @@ int main(int argc, char **argv) {
 
     {
         ResourceManager::set_executablePath(argv[0]);
-        game.init();
+        game->init();
         auto lastTime = std::chrono::high_resolution_clock::now();
 
         while (!glfwWindowShouldClose(pWindow)) {
             glfwPollEvents();
             auto currentTime = std::chrono::high_resolution_clock::now();
-            uint64_t delta = chrono::duration_cast<std::chrono::nanoseconds>(currentTime - lastTime).count();
+            double delta = chrono::duration<double, std::milli>(currentTime - lastTime).count();
             lastTime = currentTime;
 
-            game.update(delta);
+            game->update(delta);
 
             RenderEngine::Renderer::clear();
 
-            game.render();
+            game->render();
 
             glfwSwapBuffers(pWindow);
         }
-
+        game = nullptr;
         ResourceManager::unload_all();
     }
 

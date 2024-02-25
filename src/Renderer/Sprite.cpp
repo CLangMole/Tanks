@@ -3,13 +3,13 @@
 
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <utility>
 
 using namespace RenderEngine;
 
 Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialSubTexture2D,
-               std::shared_ptr<ShaderProgram> shader,
-               const glm::vec2 &position, const glm::vec2 &scale, const float rotation)
-               : texture2D(std::move(texture2D)), shader(std::move(shader)), position(position), scale(scale), rotation(rotation){
+               std::shared_ptr<ShaderProgram> shader)
+        : texture2D(std::move(texture2D)), shader(std::move(shader)), lastFrame(0) {
 
     const GLfloat vertexPosition[]{
             0.0f, 0.0f,
@@ -50,7 +50,22 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialS
     indexBuffer.unbind();
 }
 
-void Sprite::render() const {
+void Sprite::render(const glm::vec2 &position, const glm::vec2 &scale, const float rotation, const size_t frame) const {
+    if (lastFrame != frame) {
+        lastFrame = frame;
+
+        const FrameDescription &currentFrameDescription = framesDescriptions[frame];
+
+        const GLfloat texturePosition[]{
+                currentFrameDescription.leftBottomUV.x, currentFrameDescription.leftBottomUV.y,
+                currentFrameDescription.leftBottomUV.x, currentFrameDescription.rightTopUV.y,
+                currentFrameDescription.rightTopUV.x, currentFrameDescription.rightTopUV.y,
+                currentFrameDescription.rightTopUV.x, currentFrameDescription.leftBottomUV.y
+        };
+
+        texturePositionBuffer.update(texturePosition, 2 * 4 * sizeof(GLfloat));
+    }
+
     shader->use();
     glm::mat4 modelMatrix(1.0f);
 
@@ -70,14 +85,14 @@ void Sprite::render() const {
     Renderer::draw(vertexArray, indexBuffer, *shader);
 }
 
-void Sprite::set_position(const glm::vec2 &position) {
-    this->position = position;
+void Sprite::addFrames(std::vector<FrameDescription> frames) {
+    this->framesDescriptions = std::move(frames);
 }
 
-void Sprite::set_rotation(const float rotation) {
-    this->rotation = rotation;
+double Sprite::get_frameDuration(const size_t currentFrame) const {
+    return framesDescriptions[currentFrame].duration;
 }
 
-void Sprite::set_scale(const glm::vec2 &scale) {
-    this->scale = scale;
+size_t Sprite::get_framesCount() const {
+    return framesDescriptions.size();
 }
