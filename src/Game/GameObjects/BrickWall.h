@@ -8,8 +8,8 @@
 class BrickWall : public IGameObject
 {
 public:
-#pragma region
-    enum class WallType
+#pragma region States
+    enum class WallType : uint8_t
     {
         All,
         Top, Bottom,
@@ -18,7 +18,7 @@ public:
         BottomLeft, BottomRight
     };
 
-    enum class BrickState
+    enum class BrickState : uint8_t
     {
         All = 0,
         TopLeft,
@@ -38,7 +38,7 @@ public:
         Destroyed
     };
 
-    enum class BrickLocation
+    enum class BrickLocation : uint8_t
     {
         TopLeft,
         TopRight,
@@ -50,12 +50,10 @@ public:
     BrickWall(WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, float rotation);
 
     void render() const override;
-
-    void update(double delta) override;
-
 private:
     std::array<BrickState, 4> currentBrickState;
     std::array<std::shared_ptr<RenderEngine::Sprite>, 15> sprites;
+    std::array<glm::vec2, 4> blockOffsets;
 
     void render_brick(BrickLocation brickLocation) const;
 };

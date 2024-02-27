@@ -122,12 +122,12 @@ ResourceManager::load_sprite(const std::string &spriteName, const std::string &t
 
     auto texture = get_texture(textureName);
     if (!texture) {
-        std::cerr << "Can't find a texture " << textureName << " for the sprite " << spriteName << std::endl;
+        std::cerr << "Can't find a texture " << textureName << " for the aliveSprite " << spriteName << std::endl;
     }
 
     auto shader = get_shaderProgram(shaderName);
     if (!shader) {
-        std::cerr << "Can't find a shader " << shaderName << " for the sprite " << spriteName << std::endl;
+        std::cerr << "Can't find a shader " << shaderName << " for the aliveSprite " << spriteName << std::endl;
     }
 
     std::shared_ptr<RenderEngine::Sprite> sprite = sprites.emplace(spriteName,
@@ -144,7 +144,7 @@ std::shared_ptr<RenderEngine::Sprite> ResourceManager::get_sprite(const std::str
         return it->second;
     }
 
-    std::cerr << "Can't find a sprite " << name << std::endl;
+    std::cerr << "Can't find a aliveSprite " << name << std::endl;
     return nullptr;
 }
 

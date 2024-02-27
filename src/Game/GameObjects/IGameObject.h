@@ -11,7 +11,7 @@ public:
 
     virtual void render() const = 0;
 
-    virtual void update(double delta) = 0;
+    virtual void update(double delta) {};
 
 protected:
     glm::vec2 position;

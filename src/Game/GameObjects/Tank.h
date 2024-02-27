@@ -12,7 +12,7 @@ class Tank : public IGameObject
 {
 public:
 #pragma region
-    enum class Rotation
+    enum class Rotation : uint8_t
     {
         Top,
         Bottom,

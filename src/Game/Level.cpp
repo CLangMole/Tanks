@@ -1,5 +1,12 @@
 #include "Level.h"
+
 #include "GameObjects/BrickWall.h"
+#include "GameObjects/ConcreteWall.h"
+#include "GameObjects/Bush.h"
+#include "GameObjects/Ice.h"
+#include "GameObjects/Water.h"
+#include "GameObjects/Eagle.h"
+
 #include <iostream>
 
 const unsigned int BLOCK_SIZE = 16;
@@ -33,8 +40,26 @@ std::shared_ptr<IGameObject> createFromDescription(const char description,
         case 'J':
             return std::make_shared<BrickWall>(BrickWall::WallType::TopRight, position, scale,
                                                rotation);
+        case '5':
+            return std::make_shared<ConcreteWall>(ConcreteWall::WallType::Right, position, scale, rotation);
+        case '6':
+            return std::make_shared<ConcreteWall>(ConcreteWall::WallType::Bottom, position, scale, rotation);
+        case '7':
+            return std::make_shared<ConcreteWall>(ConcreteWall::WallType::Left, position, scale, rotation);
+        case '8':
+            return std::make_shared<ConcreteWall>(ConcreteWall::WallType::Top, position, scale, rotation);
+        case '9':
+            return std::make_shared<ConcreteWall>(ConcreteWall::WallType::All, position, scale, rotation);
+        case 'A':
+            return std::make_shared<Water>(position, scale, rotation);
+        case 'B':
+            return std::make_shared<Bush>(position, scale, rotation);
+        case 'C':
+            return std::make_shared<Ice>(position, scale, rotation);
         case 'D':
             return nullptr;
+        case 'E':
+            return std::make_shared<Eagle>(position, scale, rotation);
         default:
             std::cerr << "Can't find game object with description " << description << std::endl;
     }

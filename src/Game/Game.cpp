@@ -28,7 +28,7 @@ bool Game::init() {
     spriteShaderProgram->set_matrix4("projectionMat", projectionMatrix);
 
     tank = std::make_unique<Tank>(0.0000001f, glm::vec2(0), glm::vec2(16.0f, 16.0f));
-    level = std::make_unique<Level>(ResourceManager::get_levels()[0]);
+    level = std::make_unique<Level>(ResourceManager::get_levels()[1]);
 
     return true;
 }

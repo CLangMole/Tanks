@@ -4,7 +4,9 @@
 BrickWall::BrickWall(const WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, const float rotation)
         : IGameObject(position, scale, rotation),
           currentBrickState{BrickState::Destroyed, BrickState::Destroyed, BrickState::Destroyed,
-                            BrickState::Destroyed} {
+                            BrickState::Destroyed},
+          blockOffsets{glm::vec2(0, scale.y / 2), glm::vec2(scale.x / 2, scale.y / 2), glm::vec2(0),
+                       glm::vec2(scale.x / 2, 0)} {
     sprites[static_cast<size_t>(BrickState::All)] = ResourceManager::get_sprite("brickWall_All");
     sprites[static_cast<size_t>(BrickState::TopLeft)] = ResourceManager::get_sprite("brickWall_TopLeft");
     sprites[static_cast<size_t>(BrickState::TopRight)] = ResourceManager::get_sprite("brickWall_TopRight");
@@ -63,15 +65,10 @@ BrickWall::BrickWall(const WallType wallType, const glm::vec2 &position, const g
 }
 
 void BrickWall::render_brick(const BrickLocation brickLocation) const {
-    static const std::array<glm::vec2, 4> offsets = {
-            glm::vec2(0, scale.y / 2), glm::vec2(scale.x / 2, scale.y / 2),
-            glm::vec2(0), glm::vec2(scale.x / 2, 0)
-    };
-
     const BrickState state = currentBrickState[static_cast<size_t>(brickLocation)];
 
     if (state != BrickState::Destroyed) {
-        sprites[static_cast<size_t>(state)]->render(position + offsets[static_cast<size_t>(brickLocation)],
+        sprites[static_cast<size_t>(state)]->render(position + blockOffsets[static_cast<size_t>(brickLocation)],
                                                     scale / 2.0f, rotation);
     }
 }
@@ -83,6 +80,3 @@ void BrickWall::render() const {
     render_brick(BrickLocation::BottomRight);
 }
 
-void BrickWall::update(const double delta) {
-
-}
