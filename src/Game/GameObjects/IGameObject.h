@@ -5,7 +5,7 @@
 class IGameObject
 {
 public:
-    IGameObject(const glm::vec2 &position, const glm::vec2 &scale, float rotation);
+    IGameObject(const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer);
 
     virtual ~IGameObject() = default;
 
@@ -17,4 +17,5 @@ protected:
     glm::vec2 position;
     glm::vec2 scale;
     float rotation;
+    float layer;
 };

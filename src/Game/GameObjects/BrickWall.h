@@ -47,7 +47,7 @@ public:
     };
 #pragma endregion
 
-    BrickWall(WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, float rotation);
+    BrickWall(WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer);
 
     void render() const override;
 private:

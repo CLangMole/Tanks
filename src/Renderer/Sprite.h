@@ -43,8 +43,8 @@ namespace RenderEngine
 
         Sprite &operator=(const Sprite &) = delete;
 
-        void
-        render(const glm::vec2 &position, const glm::vec2 &scale, float rotation, size_t frame = 0) const;
+        void render(const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer = 0.0f,
+                    size_t frame = 0) const;
 
         void addFrames(std::vector<FrameDescription> frames);
 

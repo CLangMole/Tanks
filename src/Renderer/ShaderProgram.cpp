@@ -89,11 +89,15 @@ namespace RenderEngine{
         return *this;
     }
 
-    void ShaderProgram::set_int(const std::string &name, const GLint value) {
+    void ShaderProgram::set_int(const std::string &name, const GLint value) const {
         glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
     }
 
-    void ShaderProgram::set_matrix4(const std::string &name, const glm::mat4& matrix) {
+    void ShaderProgram::set_float(const std::string &name, const GLfloat value) const {
+        glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+    }
+
+    void ShaderProgram::set_matrix4(const std::string &name, const glm::mat4 &matrix) const {
         glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
     }
 }

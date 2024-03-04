@@ -8,18 +8,26 @@ void Renderer::draw(const RenderEngine::VertexArray &vertexArray, const RenderEn
     vertexArray.bind();
     indexBuffer.bind();
 
-    glDrawElements(GL_TRIANGLES, indexBuffer.get_count(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, static_cast<int>(indexBuffer.get_count()), GL_UNSIGNED_INT, nullptr);
 }
 
 void Renderer::set_clearColor(float red, float green, float blue, float alpha) {
     glClearColor(red, green, blue, alpha);
 }
 
-void Renderer::clear() {
-    glClear(GL_COLOR_BUFFER_BIT);
+void Renderer::set_depthTest(bool enable) {
+    if (enable) {
+        glEnable(GL_DEPTH_TEST);
+    } else {
+        glDisable(GL_DEPTH_TEST);
+    }
 }
 
-void Renderer::set_viewport(unsigned int height, unsigned int width, unsigned int xOffset, unsigned int yOffset) {
+void Renderer::clear() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Renderer::set_viewport(int height, int width, int xOffset, int yOffset) {
     glViewport(xOffset, yOffset, width, height);
 }
 

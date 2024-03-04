@@ -33,7 +33,7 @@ public:
     };
 #pragma endregion
 
-    ConcreteWall(WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, float rotation);
+    ConcreteWall(WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer);
 
     void render() const override;
 

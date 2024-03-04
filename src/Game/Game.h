@@ -19,9 +19,13 @@ public:
 
     void update(double delta);
 
+    bool init();
+
     void set_key(int key, int action);
 
-    bool init();
+    [[nodiscard]] size_t get_levelWidth() const;
+
+    [[nodiscard]] size_t get_levelHeight() const;
 
 private:
     std::array<bool, 349> keys;

@@ -50,7 +50,8 @@ Sprite::Sprite(std::shared_ptr<Texture2D> texture2D, const std::string &initialS
     indexBuffer.unbind();
 }
 
-void Sprite::render(const glm::vec2 &position, const glm::vec2 &scale, const float rotation, const size_t frame) const {
+void
+Sprite::render(const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer, size_t frame) const {
     if (lastFrame != frame) {
         lastFrame = frame;
 
@@ -78,6 +79,7 @@ void Sprite::render(const glm::vec2 &position, const glm::vec2 &scale, const flo
     modelMatrix = glm::scale(modelMatrix, glm::vec3(scale, 0.0f));
 
     shader->set_matrix4("modelMat", modelMatrix);
+    shader->set_float("layer", layer);
 
     glActiveTexture(GL_TEXTURE0);
     texture2D->bind();

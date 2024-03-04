@@ -16,7 +16,7 @@ public:
         BottomRight
     };
 
-    Bush(const glm::vec2 &position, const glm::vec2 &scale, float rotation);
+    Bush(const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer);
 
     void render() const override;
 

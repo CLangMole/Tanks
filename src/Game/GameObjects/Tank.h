@@ -21,7 +21,7 @@ public:
     };
 #pragma endregion
 
-    Tank(float velocity, const glm::vec2 &position, const glm::vec2 &scale);
+    Tank(float velocity, const glm::vec2 &position, const glm::vec2 &scale, float layer);
 
     void render() const override;
 

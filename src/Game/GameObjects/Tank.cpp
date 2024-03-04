@@ -1,9 +1,8 @@
 #include "Tank.h"
 #include "../../Resources/ResourceManager.h"
-#include <utility>
 
-Tank::Tank(const float velocity, const glm::vec2 &position, const glm::vec2 &scale)
-        : IGameObject(position, scale, 0.0f),
+Tank::Tank(float velocity, const glm::vec2 &position, const glm::vec2 &scale, float layer)
+        : IGameObject(position, scale, 0.0f, layer),
           spriteTop(ResourceManager::get_sprite("player2_green_tank_type1_sprite_top")),
           spriteBottom(ResourceManager::get_sprite("player2_green_tank_type1_sprite_bottom")),
           spriteLeft(ResourceManager::get_sprite("player2_green_tank_type1_sprite_left")),
@@ -16,16 +15,16 @@ Tank::Tank(const float velocity, const glm::vec2 &position, const glm::vec2 &sca
 void Tank::render() const {
     switch (currentRotation) {
         case Rotation::Top:
-            spriteTop->render(position, scale, rotation, spriteAnimatorTop.getCurrentFrame());
+            spriteTop->render(position, scale, rotation, layer, spriteAnimatorTop.getCurrentFrame());
             break;
         case Rotation::Bottom:
-            spriteBottom->render(position, scale, rotation, spriteAnimatorBottom.getCurrentFrame());
+            spriteBottom->render(position, scale, rotation, layer, spriteAnimatorBottom.getCurrentFrame());
             break;
         case Rotation::Left:
-            spriteLeft->render(position, scale, rotation, spriteAnimatorLeft.getCurrentFrame());
+            spriteLeft->render(position, scale, rotation, layer, spriteAnimatorLeft.getCurrentFrame());
             break;
         case Rotation::Right:
-            spriteRight->render(position, scale, rotation, spriteAnimatorRight.getCurrentFrame());
+            spriteRight->render(position, scale, rotation, layer, spriteAnimatorRight.getCurrentFrame());
             break;
     }
 }
@@ -36,16 +35,16 @@ void Tank::update(const double delta) {
 
         switch (currentRotation) {
             case Rotation::Top:
-                spriteAnimatorTop.update(delta);
+                spriteAnimatorTop.update(delta * 3);
                 break;
             case Rotation::Bottom:
-                spriteAnimatorBottom.update(delta);
+                spriteAnimatorBottom.update(delta * 3);
                 break;
             case Rotation::Left:
-                spriteAnimatorLeft.update(delta);
+                spriteAnimatorLeft.update(delta * 3);
                 break;
             case Rotation::Right:
-                spriteAnimatorRight.update(delta);
+                spriteAnimatorRight.update(delta * 3);
                 break;
         }
     }

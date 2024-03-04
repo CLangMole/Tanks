@@ -2,8 +2,8 @@
   "shaders": [
     {
       "name": "spriteShader",
-      "vertexPath": "res/shaders/vSprite.txt",
-      "fragmentPath": "res/shaders/fSprite.txt"
+      "vertexPath": "res/shaders/vSpriteShader.glsl",
+      "fragmentPath": "res/shaders/fSpriteShader.glsl"
     }
   ],
   "textureAtlases": [
@@ -1945,7 +1945,7 @@
     },
     {
       "description": [
-        "MDDDDDNDDDDDO",
+        "DDDDDDDDDDDDD",
         "D00D11D22D33D",
         "D0DD1DD2DD3DD",
         "DDDDDDDDDDDDD",

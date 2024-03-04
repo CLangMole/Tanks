@@ -1,8 +1,8 @@
 #include "BrickWall.h"
 #include "../../Resources/ResourceManager.h"
 
-BrickWall::BrickWall(const WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, const float rotation)
-        : IGameObject(position, scale, rotation),
+BrickWall::BrickWall(WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer)
+        : IGameObject(position, scale, rotation, layer),
           currentBrickState{BrickState::Destroyed, BrickState::Destroyed, BrickState::Destroyed,
                             BrickState::Destroyed},
           blockOffsets{glm::vec2(0, scale.y / 2), glm::vec2(scale.x / 2, scale.y / 2), glm::vec2(0),
@@ -69,7 +69,7 @@ void BrickWall::render_brick(const BrickLocation brickLocation) const {
 
     if (state != BrickState::Destroyed) {
         sprites[static_cast<size_t>(state)]->render(position + blockOffsets[static_cast<size_t>(brickLocation)],
-                                                    scale / 2.0f, rotation);
+                                                    scale / 2.0f, rotation, layer);
     }
 }
 

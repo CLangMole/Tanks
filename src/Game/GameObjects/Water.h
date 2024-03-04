@@ -17,7 +17,7 @@ public:
         BottomRight
     };
 
-    Water(const glm::vec2 &position, const glm::vec2 &scale, float rotation);
+    Water(const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer);
 
     void render() const override;
 
