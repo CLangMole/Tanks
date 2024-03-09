@@ -20,9 +20,10 @@ bool Game::init() {
         return false;
     }
 
-    level = std::make_unique<Level>(ResourceManager::get_levels()[1]);
-    windowSize.x = static_cast<int>(level->get_width());
+    level = std::make_shared<Level>(ResourceManager::get_levels()[0]); //TODO Fix depth test issue
+    windowSize.x = static_cast<int>(level->get_width()); //TODO Fix viewport
     windowSize.y = static_cast<int>(level->get_height());
+    Physics::PhysicsEngine::set_currentLevel(level);
 
     glm::mat4 projectionMatrix = glm::ortho(0.0f, static_cast<float>(windowSize.x), 0.0f,
                                             static_cast<float>(windowSize.y), -100.0f, 100.0f);
@@ -31,8 +32,9 @@ bool Game::init() {
     spriteShaderProgram->set_int("tex", 0);
     spriteShaderProgram->set_matrix4("projectionMat", projectionMatrix);
 
-    tank = std::make_unique<Tank>(0.0000005f, level->getPlayerRespawn1(),
+    tank = std::make_shared<Tank>(0.05f, level->getPlayerRespawn1(),
                                   glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.0f);
+    Physics::PhysicsEngine::add_dynamicObject(tank);
 
     return true;
 }
@@ -55,18 +57,18 @@ void Game::update(const double delta) {
     if (tank) {
         if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP]) {
             tank->set_rotation(Tank::Rotation::Top);
-            tank->move(true);
+            tank->set_velocity(tank->get_maxVelocity());
         } else if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN]) {
             tank->set_rotation(Tank::Rotation::Bottom);
-            tank->move(true);
+            tank->set_velocity(tank->get_maxVelocity());
         } else if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT]) {
             tank->set_rotation(Tank::Rotation::Left);
-            tank->move(true);
+            tank->set_velocity(tank->get_maxVelocity());
         } else if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT]) {
             tank->set_rotation(Tank::Rotation::Right);
-            tank->move(true);
+            tank->set_velocity(tank->get_maxVelocity());
         } else {
-            tank->move(false);
+            tank->set_velocity(0);
         }
 
         tank->update(delta);

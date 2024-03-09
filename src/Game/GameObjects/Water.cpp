@@ -12,7 +12,7 @@ Water::Water(const glm::vec2 &position, const glm::vec2 &scale, float rotation, 
 
 void Water::render_waterPart(Water::WaterPartLocation partLocation) const {
     sprite->render(position + blockOffsets[static_cast<size_t>(partLocation)],
-                   scale / 2.0f, rotation, layer, spriteAnimator.getCurrentFrame());
+                   scale / 2.0f, rotation, layer, spriteAnimator.get_currentFrame());
 }
 
 void Water::render() const {

@@ -8,7 +8,9 @@
 #include "GameObjects/Eagle.h"
 #include "GameObjects/Border.h"
 
+#include <cmath>
 #include <iostream>
+#include <algorithm>
 
 std::shared_ptr<IGameObject> createFromDescription(const char description,
                                                    const glm::vec2 &position, const glm::vec2 &scale,
@@ -78,15 +80,18 @@ Level::Level(const std::vector<std::string> &description) {
         std::cerr << "Level description is empty" << std::endl;
     }
 
-    width = description[0].length();
-    height = description.size();
+    widthBlocks = description[0].length();
+    heightBlocks = description.size();
 
-    playerRespawn1 = {BLOCK_SIZE * (width / 2 - 1), BLOCK_SIZE / 2};
-    playerRespawn2 = {BLOCK_SIZE * (width / 2 + 3), BLOCK_SIZE / 2};
+    widthPixels = widthBlocks * BLOCK_SIZE;
+    heightPixels = heightBlocks * BLOCK_SIZE;
 
-    gameObjects.reserve(width * height + 4);
+    playerRespawn1 = {BLOCK_SIZE * (widthBlocks / 2 - 1), BLOCK_SIZE / 2};
+    playerRespawn2 = {BLOCK_SIZE * (widthBlocks / 2 + 3), BLOCK_SIZE / 2};
 
-    unsigned int currentBottomOffset = BLOCK_SIZE * (height - 1) + BLOCK_SIZE / 2;
+    gameObjects.reserve(widthBlocks * heightBlocks + 4);
+
+    unsigned int currentBottomOffset = BLOCK_SIZE * (heightBlocks - 1) + BLOCK_SIZE / 2;
 
     for (const std::string &currentRow: description) {
         unsigned int currentLeftOffset = BLOCK_SIZE;
@@ -95,9 +100,11 @@ Level::Level(const std::vector<std::string> &description) {
             switch (currentElement) {
                 case 'K':
                     playerRespawn1 = {currentLeftOffset, currentBottomOffset};
+                    gameObjects.emplace_back(nullptr);
                     break;
                 case 'L':
                     playerRespawn2 = {currentLeftOffset, currentBottomOffset};
+                    gameObjects.emplace_back(nullptr);
                     break;
                 default:
                     gameObjects.emplace_back(
@@ -113,13 +120,14 @@ Level::Level(const std::vector<std::string> &description) {
     }
 
     gameObjects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, 0),
-                                                      glm::vec2(width * BLOCK_SIZE, BLOCK_SIZE / 2), 0, 0));
-    gameObjects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, height * BLOCK_SIZE + BLOCK_SIZE / 2),
-                                                      glm::vec2(width * BLOCK_SIZE, BLOCK_SIZE / 2), 0, 0));
+                                                      glm::vec2(widthPixels, BLOCK_SIZE / 2), 0, 0));
+    gameObjects.emplace_back(std::make_shared<Border>(glm::vec2(BLOCK_SIZE, heightPixels + BLOCK_SIZE / 2),
+                                                      glm::vec2(widthPixels, BLOCK_SIZE / 2), 0, 0));
     gameObjects.emplace_back(std::make_shared<Border>(glm::vec2(0, 0),
-                                                      glm::vec2(BLOCK_SIZE, (height + 1) * BLOCK_SIZE), 0, 0));
-    gameObjects.emplace_back(std::make_shared<Border>(glm::vec2((width + 1) * BLOCK_SIZE, 0),
-                                                      glm::vec2(2 * BLOCK_SIZE, (height + 1) * BLOCK_SIZE), 0, 0));
+                                                      glm::vec2(BLOCK_SIZE, (heightBlocks + 1) * BLOCK_SIZE), 0, 0));
+    gameObjects.emplace_back(std::make_shared<Border>(glm::vec2((widthBlocks + 1) * BLOCK_SIZE, 0),
+                                                      glm::vec2(2 * BLOCK_SIZE, (heightBlocks + 1) * BLOCK_SIZE), 0,
+                                                      0));
 }
 
 void Level::render() const {
@@ -139,9 +147,41 @@ void Level::update(const double delta) {
 }
 
 size_t Level::get_width() const {
-    return (width + 3) * BLOCK_SIZE;
+    return (widthBlocks + 3) * BLOCK_SIZE;
 }
 
 size_t Level::get_height() const {
-    return (height + 1) * BLOCK_SIZE;
+    return (heightBlocks + 1) * BLOCK_SIZE;
+}
+
+std::vector<std::shared_ptr<IGameObject>>
+Level::get_objectsInArea(const glm::vec2 &bottomLeft, const glm::vec2 &topRight) const {
+    std::vector<std::shared_ptr<IGameObject>> output;
+    output.reserve(9);
+
+    glm::vec2 convertedBottomLeft(std::clamp(bottomLeft.x - BLOCK_SIZE, 0.0f, static_cast<float>(widthPixels)),
+                                  std::clamp(static_cast<float>(heightPixels) - bottomLeft.y +
+                                             static_cast<float>(BLOCK_SIZE) / 2, 0.0f,
+                                             static_cast<float>(heightPixels)));
+    glm::vec2 convertedTopRight(std::clamp(topRight.x - BLOCK_SIZE, 0.0f, static_cast<float>(widthPixels)),
+                                std::clamp(static_cast<float>(heightPixels) - topRight.y +
+                                           static_cast<float>(BLOCK_SIZE) / 2, 0.0f, static_cast<float>(heightPixels)));
+
+    size_t startX = std::floor(convertedBottomLeft.x / BLOCK_SIZE);
+    size_t endX = std::ceil(convertedTopRight.x / BLOCK_SIZE);
+
+    size_t startY = std::floor(convertedTopRight.y / BLOCK_SIZE);
+    size_t endY = std::ceil(convertedBottomLeft.y / BLOCK_SIZE);
+
+    for (size_t currentColumn = startX; currentColumn < endX; ++currentColumn) {
+        for (size_t currentRow = startY; currentRow < endY; ++currentRow) {
+            auto &currentObject = gameObjects[currentRow * widthBlocks + currentColumn];
+
+            if (currentObject) {
+                output.push_back(currentObject);
+            }
+        }
+    }
+
+    return output;
 }

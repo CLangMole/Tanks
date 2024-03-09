@@ -7,6 +7,7 @@
 #include "../../Renderer/Sprite.h"
 #include "../../Renderer/SpriteAnimator.h"
 #include "IGameObject.h"
+#include "../../System/Timer.h"
 
 class Tank : public IGameObject
 {
@@ -21,7 +22,7 @@ public:
     };
 #pragma endregion
 
-    Tank(float velocity, const glm::vec2 &position, const glm::vec2 &scale, float layer);
+    Tank(double maxVelocity, const glm::vec2 &position, const glm::vec2 &scale, float layer);
 
     void render() const override;
 
@@ -29,22 +30,41 @@ public:
 
     void set_rotation(Rotation rotation);
 
-    void move(bool moving);
+    void set_velocity(double newVelocity) override;
+
+    [[nodiscard]] double get_maxVelocity() const {
+        return maxVelocity;
+    };
 
 private:
+
+#pragma region Sprites
     std::shared_ptr<RenderEngine::Sprite> spriteTop;
     std::shared_ptr<RenderEngine::Sprite> spriteBottom;
     std::shared_ptr<RenderEngine::Sprite> spriteLeft;
     std::shared_ptr<RenderEngine::Sprite> spriteRight;
 
+    std::shared_ptr<RenderEngine::Sprite> spriteRespawn;
+    std::shared_ptr<RenderEngine::Sprite> spriteShield;
+#pragma endregion
+
+#pragma region Sprites animators
     RenderEngine::SpriteAnimator spriteAnimatorTop;
     RenderEngine::SpriteAnimator spriteAnimatorBottom;
     RenderEngine::SpriteAnimator spriteAnimatorLeft;
     RenderEngine::SpriteAnimator spriteAnimatorRight;
 
-    float velocity;
-    glm::vec2 moveOffset;
+    RenderEngine::SpriteAnimator spriteAnimatorRespawn;
+    RenderEngine::SpriteAnimator spriteAnimatorShield;
+#pragma endregion
+
+    double maxVelocity;
     Rotation currentRotation;
-    bool isMoving;
+
+    bool isRespawning;
+    bool hasShield;
+
+    Timer respawnTimer;
+    Timer shieldTimer;
 };
 

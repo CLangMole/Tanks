@@ -40,6 +40,6 @@ private:
 
     glm::ivec2 windowSize;
 
-    std::unique_ptr<Tank> tank;
-    std::unique_ptr<Level> level;
+    std::shared_ptr<Tank> tank;
+    std::shared_ptr<Level> level;
 };

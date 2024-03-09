@@ -32,34 +32,43 @@ BrickWall::BrickWall(WallType wallType, const glm::vec2 &position, const glm::ve
     switch (wallType) {
         case WallType::All:
             currentBrickState.fill(BrickState::All);
+            colliders.emplace_back(glm::vec2(0), scale);
             break;
         case WallType::Top:
             currentBrickState[static_cast<size_t>(BrickLocation::TopLeft)] = BrickState::All;
             currentBrickState[static_cast<size_t>(BrickLocation::TopRight)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(0, scale.y / 2), scale);
             break;
         case WallType::Bottom:
             currentBrickState[static_cast<size_t>(BrickLocation::BottomLeft)] = BrickState::All;
             currentBrickState[static_cast<size_t>(BrickLocation::BottomRight)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(0), glm::vec2(scale.x, scale.y / 2));
             break;
         case WallType::Left:
             currentBrickState[static_cast<size_t>(BrickLocation::TopLeft)] = BrickState::All;
             currentBrickState[static_cast<size_t>(BrickLocation::BottomLeft)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(0), glm::vec2(scale.x / 2, scale.y));
             break;
         case WallType::Right:
             currentBrickState[static_cast<size_t>(BrickLocation::TopRight)] = BrickState::All;
             currentBrickState[static_cast<size_t>(BrickLocation::BottomRight)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(scale.x / 2, 0), scale);
             break;
         case WallType::TopLeft:
             currentBrickState[static_cast<size_t>(BrickLocation::TopLeft)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(0, scale.y / 2), glm::vec2(scale.x / 2, scale.y));
             break;
         case WallType::TopRight:
             currentBrickState[static_cast<size_t>(BrickLocation::TopRight)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(scale.x / 2, scale.y / 2), scale);
             break;
         case WallType::BottomLeft:
             currentBrickState[static_cast<size_t>(BrickLocation::BottomLeft)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(0), glm::vec2(scale.x / 2, scale.y / 2));
             break;
         case WallType::BottomRight:
             currentBrickState[static_cast<size_t>(BrickLocation::BottomRight)] = BrickState::All;
+            colliders.emplace_back(glm::vec2(scale.x / 2, 0), glm::vec2(scale.x, scale.y / 2));
             break;
     }
 }

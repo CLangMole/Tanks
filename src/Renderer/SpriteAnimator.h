@@ -10,7 +10,7 @@ namespace RenderEngine
     public:
         explicit SpriteAnimator(std::shared_ptr<RenderEngine::Sprite> sprite);
 
-        [[nodiscard]] size_t getCurrentFrame() const {
+        [[nodiscard]] size_t get_currentFrame() const {
             return currentFrame;
         }
 

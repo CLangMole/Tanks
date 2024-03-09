@@ -2,8 +2,8 @@
 
 #include <vector>
 #include <memory>
-#include "..//Game/GameObjects/IGameObject.h"
 #include <glm/vec2.hpp>
+#include "GameObjects/IGameObject.h"
 
 class Level
 {
@@ -28,9 +28,15 @@ public:
         return playerRespawn2;
     }
 
+    [[nodiscard]] std::vector<std::shared_ptr<IGameObject>>
+    get_objectsInArea(const glm::vec2 &bottomLeft, const glm::vec2 &topRight) const;
+
 private:
-    size_t width;
-    size_t height;
+    size_t widthBlocks;
+    size_t heightBlocks;
+
+    unsigned int widthPixels = 0;
+    unsigned int heightPixels = 0;
 
     glm::ivec2 playerRespawn1{};
     glm::ivec2 playerRespawn2{};

@@ -4,6 +4,7 @@
 #include "Resources/ResourceManager.h"
 #include "Game/Game.h"
 #include "Renderer/Renderer.h"
+#include "Physics/PhysicsEngine.h"
 
 #include <chrono>
 
@@ -82,8 +83,11 @@ int main(int argc, char **argv) {
 
     {
         ResourceManager::set_executablePath(argv[0]);
+        Physics::PhysicsEngine::init();
         game->init();
-        glfwSetWindowSize(window, static_cast<int>(game->get_levelWidth()), static_cast<int>(game->get_levelHeight()));
+
+        glfwSetWindowSize(window, static_cast<int>(3 * game->get_levelWidth()),
+                          static_cast<int>(3 * game->get_levelHeight()));
         auto lastTime = std::chrono::high_resolution_clock::now();
 
         while (!glfwWindowShouldClose(window)) {
@@ -93,6 +97,7 @@ int main(int argc, char **argv) {
             lastTime = currentTime;
 
             game->update(delta);
+            Physics::PhysicsEngine::update(delta);
 
             RenderEngine::Renderer::clear();
 
