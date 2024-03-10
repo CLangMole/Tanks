@@ -20,6 +20,18 @@ void PhysicsEngine::terminate() {
 void PhysicsEngine::update(double delta) {
     for (auto &currentObject: dynamicObjects) {
         if (currentObject->get_currentVelocity() > 0) {
+            if (currentObject->get_currentDirection().x != 0.0f) {
+                currentObject->get_currentPosition() = glm::vec2(currentObject->get_currentPosition().x,
+                                                                 (float) static_cast<unsigned int>(
+                                                                         currentObject->get_currentPosition().y / 4.0 +
+                                                                         (double) 0.5) * 4.0f);
+            } else if (currentObject->get_currentDirection().y != 0.0f) {
+                currentObject->get_currentPosition() = glm::vec2(
+                        (float) static_cast<unsigned int>(currentObject->get_currentPosition().x / 4.0f +
+                                                          (double) 0.5f) * 4.0f,
+                        currentObject->get_currentPosition().y);
+            }
+
             const auto newPosition = currentObject->get_currentPosition() + currentObject->get_currentDirection() *
                                                                             static_cast<float>(
                                                                                     currentObject->get_currentVelocity() *
@@ -45,6 +57,18 @@ void PhysicsEngine::update(double delta) {
 
             if (!hasCollision) {
                 currentObject->get_currentPosition() = newPosition;
+            } else {
+                if (currentObject->get_currentDirection().x != 0.0f) {
+                    currentObject->get_currentPosition() = glm::vec2(
+                            (float) static_cast<unsigned int>(currentObject->get_currentPosition().x / 8.0f +
+                                                              (double) 0.5f) * 8.0f,
+                            currentObject->get_currentPosition().y);
+                } else if (currentObject->get_currentDirection().y != 0.0f) {
+                    currentObject->get_currentPosition() = glm::vec2(currentObject->get_currentPosition().x,
+                                                                     (float) static_cast<unsigned int>(
+                                                                             currentObject->get_currentPosition().y /
+                                                                             8.0f + (double) 0.5f) * 8.0f);
+                }
             }
         }
     }
@@ -83,6 +107,8 @@ bool PhysicsEngine::has_intersection(const std::vector<AABB> &lColliders, const 
             if (currentTopRightWorldLCollider.y <= currentBottomLeftWorldRCollider.y) {
                 return false;
             }
+
+            return true;
         }
     }
 

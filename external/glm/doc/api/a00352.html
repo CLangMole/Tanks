@@ -114,28 +114,103 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5ee8332600b2aca3a77622a28d857b55"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
 <tr class="memitem:ga5ee8332600b2aca3a77622a28d857b55"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00352.html#ga5ee8332600b2aca3a77622a28d857b55">quat_identity</a> ()</td></tr>
 <tr class="memdesc:ga5ee8332600b2aca3a77622a28d857b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an identity quaternion.  <a href="a00352.html#ga5ee8332600b2aca3a77622a28d857b55">More...</a><br /></td></tr>
-<tr class="separator:ga5ee8332600b2aca3a77622a28d857b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga07da6ef58646442efe93b0c273d73776"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
-<tr class="memitem:ga07da6ef58646442efe93b0c273d73776"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL vec&lt; 3, T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00352.html#ga07da6ef58646442efe93b0c273d73776">rotate</a> (qua&lt; T, Q &gt; const &amp;q, vec&lt; 3, T, Q &gt; const &amp;v)</td></tr>
-<tr class="memdesc:ga07da6ef58646442efe93b0c273d73776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns quarternion square root.  <a href="a00352.html#ga07da6ef58646442efe93b0c273d73776">More...</a><br /></td></tr>
-<tr class="separator:ga07da6ef58646442efe93b0c273d73776"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafcb78dfff45fbf19a7fcb2bd03fbf196"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
-<tr class="memitem:gafcb78dfff45fbf19a7fcb2bd03fbf196"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL vec&lt; 4, T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00352.html#gafcb78dfff45fbf19a7fcb2bd03fbf196">rotate</a> (qua&lt; T, Q &gt; const &amp;q, vec&lt; 4, T, Q &gt; const &amp;v)</td></tr>
-<tr class="memdesc:gafcb78dfff45fbf19a7fcb2bd03fbf196"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates a 4 components vector by a quaternion.  <a href="a00352.html#gafcb78dfff45fbf19a7fcb2bd03fbf196">More...</a><br /></td></tr>
-<tr class="separator:gafcb78dfff45fbf19a7fcb2bd03fbf196"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga03e61282831cc3f52cc76f72f52ad2c5"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
-<tr class="memitem:ga03e61282831cc3f52cc76f72f52ad2c5"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">rotation</a> (vec&lt; 3, T, Q &gt; const &amp;orig, vec&lt; 3, T, Q &gt; const &amp;dest)</td></tr>
-<tr class="memdesc:ga03e61282831cc3f52cc76f72f52ad2c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the rotation between two vectors.  <a href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">More...</a><br /></td></tr>
-<tr class="separator:ga03e61282831cc3f52cc76f72f52ad2c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadc576cc957adc2a568cdcbc3799175bc"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
-<tr class="memitem:gadc576cc957adc2a568cdcbc3799175bc"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00352.html#gadc576cc957adc2a568cdcbc3799175bc">shortMix</a> (qua&lt; T, Q &gt; const &amp;x, qua&lt; T, Q &gt; const &amp;y, T const &amp;a)</td></tr>
-<tr class="memdesc:gadc576cc957adc2a568cdcbc3799175bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quaternion interpolation using the rotation short path.  <a href="a00352.html#gadc576cc957adc2a568cdcbc3799175bc">More...</a><br /></td></tr>
-<tr class="separator:gadc576cc957adc2a568cdcbc3799175bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0b9bf3459e132ad8a18fe970669e3e35"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
-<tr class="memitem:ga0b9bf3459e132ad8a18fe970669e3e35"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00352.html#ga0b9bf3459e132ad8a18fe970669e3e35">squad</a> (qua&lt; T, Q &gt; const &amp;q1, qua&lt; T, Q &gt; const &amp;q2, qua&lt; T, Q &gt; const &amp;s1, qua&lt; T, Q &gt; const &amp;s2, T const &amp;h)</td></tr>
-<tr class="memdesc:ga0b9bf3459e132ad8a18fe970669e3e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute a point on a path according squad equation.  <a href="a00352.html#ga0b9bf3459e132ad8a18fe970669e3e35">More...</a><br /></td></tr>
-<tr class="separator:ga0b9bf3459e132ad8a18fe970669e3e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaab0afabb894b28a983fb8ec610409d56"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
+<tr class="separator:ga5ee8332600b2aca3a77622a28d857b55">
+    <td class="memSeparator" colspan="2">&#160;</td>
+</tr>
+    <tr class="memitem:ga07da6ef58646442efe93b0c273d73776">
+        <td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt;</td>
+    </tr>
+    <tr class="memitem:ga07da6ef58646442efe93b0c273d73776">
+        <td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL vec&lt; 3, T, Q &gt;&#160;</td>
+        <td class="memTemplItemRight" valign="bottom"><a class="el"
+                                                         href="a00352.html#ga07da6ef58646442efe93b0c273d73776">rotate</a>
+            (qua&lt; T, Q &gt; const &amp;q, vec&lt; 3, T, Q &gt; const &amp;v)
+        </td>
+    </tr>
+    <tr class="memdesc:ga07da6ef58646442efe93b0c273d73776">
+        <td class="mdescLeft">&#160;</td>
+        <td class="mdescRight">Returns quarternion square root. <a
+                href="a00352.html#ga07da6ef58646442efe93b0c273d73776">More...</a><br/></td>
+    </tr>
+    <tr class="separator:ga07da6ef58646442efe93b0c273d73776">
+        <td class="memSeparator" colspan="2">&#160;</td>
+    </tr>
+    <tr class="memitem:gafcb78dfff45fbf19a7fcb2bd03fbf196">
+        <td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt;</td>
+    </tr>
+    <tr class="memitem:gafcb78dfff45fbf19a7fcb2bd03fbf196">
+        <td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL vec&lt; 4, T, Q &gt;&#160;</td>
+        <td class="memTemplItemRight" valign="bottom"><a class="el"
+                                                         href="a00352.html#gafcb78dfff45fbf19a7fcb2bd03fbf196">rotate</a>
+            (qua&lt; T, Q &gt; const &amp;q, vec&lt; 4, T, Q &gt; const &amp;v)
+        </td>
+    </tr>
+    <tr class="memdesc:gafcb78dfff45fbf19a7fcb2bd03fbf196">
+        <td class="mdescLeft">&#160;</td>
+        <td class="mdescRight">Rotates a 4 components vector by a quaternion. <a
+                href="a00352.html#gafcb78dfff45fbf19a7fcb2bd03fbf196">More...</a><br/></td>
+    </tr>
+    <tr class="separator:gafcb78dfff45fbf19a7fcb2bd03fbf196">
+        <td class="memSeparator" colspan="2">&#160;</td>
+    </tr>
+    <tr class="memitem:ga03e61282831cc3f52cc76f72f52ad2c5">
+        <td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt;</td>
+    </tr>
+    <tr class="memitem:ga03e61282831cc3f52cc76f72f52ad2c5">
+        <td align="right" class="memTemplItemLeft" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td>
+        <td class="memTemplItemRight" valign="bottom"><a class="el"
+                                                         href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">orientation</a>
+            (vec&lt; 3, T, Q &gt; const &amp;orig, vec&lt; 3, T, Q &gt; const &amp;dest)
+        </td>
+    </tr>
+    <tr class="memdesc:ga03e61282831cc3f52cc76f72f52ad2c5">
+        <td class="mdescLeft">&#160;</td>
+        <td class="mdescRight">Compute the orientation between two vectors. <a
+                href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">More...</a><br/></td>
+    </tr>
+    <tr class="separator:ga03e61282831cc3f52cc76f72f52ad2c5">
+        <td class="memSeparator" colspan="2">&#160;</td>
+    </tr>
+    <tr class="memitem:gadc576cc957adc2a568cdcbc3799175bc">
+        <td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt;</td>
+    </tr>
+    <tr class="memitem:gadc576cc957adc2a568cdcbc3799175bc">
+        <td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td>
+        <td class="memTemplItemRight" valign="bottom"><a class="el"
+                                                         href="a00352.html#gadc576cc957adc2a568cdcbc3799175bc">shortMix</a>
+            (qua&lt; T, Q &gt; const &amp;x, qua&lt; T, Q &gt; const &amp;y, T const &amp;a)
+        </td>
+    </tr>
+    <tr class="memdesc:gadc576cc957adc2a568cdcbc3799175bc">
+        <td class="mdescLeft">&#160;</td>
+        <td class="mdescRight">Quaternion interpolation using the orientation short path. <a
+                href="a00352.html#gadc576cc957adc2a568cdcbc3799175bc">More...</a><br/></td>
+    </tr>
+    <tr class="separator:gadc576cc957adc2a568cdcbc3799175bc">
+        <td class="memSeparator" colspan="2">&#160;</td>
+    </tr>
+    <tr class="memitem:ga0b9bf3459e132ad8a18fe970669e3e35">
+        <td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt;</td>
+    </tr>
+    <tr class="memitem:ga0b9bf3459e132ad8a18fe970669e3e35">
+        <td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td>
+        <td class="memTemplItemRight" valign="bottom"><a class="el"
+                                                         href="a00352.html#ga0b9bf3459e132ad8a18fe970669e3e35">squad</a>
+            (qua&lt; T, Q &gt; const &amp;q1, qua&lt; T, Q &gt; const &amp;q2, qua&lt; T, Q &gt; const &amp;s1, qua&lt;
+            T, Q &gt; const &amp;s2, T const &amp;h)
+        </td>
+    </tr>
+    <tr class="memdesc:ga0b9bf3459e132ad8a18fe970669e3e35">
+        <td class="mdescLeft">&#160;</td>
+        <td class="mdescRight">Compute a point on a path according squad equation. <a
+                href="a00352.html#ga0b9bf3459e132ad8a18fe970669e3e35">More...</a><br/></td>
+    </tr>
+    <tr class="separator:ga0b9bf3459e132ad8a18fe970669e3e35">
+        <td class="memSeparator" colspan="2">&#160;</td>
+    </tr>
+    <tr class="memitem:gaab0afabb894b28a983fb8ec610409d56">
+        <td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt;</td>
+    </tr>
 <tr class="memitem:gaab0afabb894b28a983fb8ec610409d56"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL mat&lt; 3, 3, T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00352.html#gaab0afabb894b28a983fb8ec610409d56">toMat3</a> (qua&lt; T, Q &gt; const &amp;x)</td></tr>
 <tr class="memdesc:gaab0afabb894b28a983fb8ec610409d56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a quaternion to a 3 * 3 matrix.  <a href="a00352.html#gaab0afabb894b28a983fb8ec610409d56">More...</a><br /></td></tr>
 <tr class="separator:gaab0afabb894b28a983fb8ec610409d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -405,7 +480,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">GLM_FUNC_DECL qua&lt;T, Q&gt; glm::rotation </td>
+            <td class="memname">GLM_FUNC_DECL qua&lt;T, Q&gt; glm::orientation</td>
           <td>(</td>
           <td class="paramtype">vec&lt; 3, T, Q &gt; const &amp;&#160;</td>
           <td class="paramname"><em>orig</em>, </td>
@@ -424,7 +499,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Compute the rotation between two vectors. </p>
+    <p>Compute the orientation between two vectors. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">orig</td><td>vector, needs to be normalized </td></tr>
@@ -466,7 +541,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Quaternion interpolation using the rotation short path. </p>
+    <p>Quaternion interpolation using the orientation short path. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="a00352.html" title="Include <glm/gtx/quaternion.hpp> to use the features of this extension. ">GLM_GTX_quaternion</a> </dd></dl>
 
 </div>

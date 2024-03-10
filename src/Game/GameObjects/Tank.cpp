@@ -11,7 +11,8 @@ Tank::Tank(double maxVelocity, const glm::vec2 &position, const glm::vec2 &scale
           spriteAnimatorTop(this->spriteTop), spriteAnimatorBottom(this->spriteBottom),
           spriteAnimatorLeft(this->spriteLeft), spriteAnimatorRight(this->spriteRight),
           spriteAnimatorRespawn(this->spriteRespawn), spriteAnimatorShield(this->spriteShield),
-          maxVelocity(maxVelocity), currentRotation(Rotation::Top), isRespawning(true), hasShield(false) {
+          maxVelocity(maxVelocity), currentRotation(Rotation::Top), isRespawning(true), hasShield(false),
+          currentBullet(std::make_shared<Bullet>(0.1, this->position + this->scale / 4.0f, this->scale / 2.0f, layer)) {
     respawnTimer.on_complete(
             [&]() {
                 isRespawning = false;
@@ -54,6 +55,10 @@ void Tank::render() const {
             spriteShield->render(position, scale, rotation, layer + 0.1f, spriteAnimatorShield.get_currentFrame());
         }
     }
+
+    if (currentBullet->is_active()) {
+        currentBullet->render();
+    }
 }
 
 void Tank::update(const double delta) {
@@ -86,7 +91,7 @@ void Tank::update(const double delta) {
 }
 
 void Tank::set_rotation(const Rotation rotation) {
-    if (this->currentRotation == rotation){
+    if (this->currentRotation == rotation) {
         return;
     }
 
@@ -120,5 +125,12 @@ void Tank::set_velocity(double newVelocity) {
     if (!isRespawning) {
         currentVelocity = newVelocity;
     }
+}
+
+void Tank::fire() {
+//    if (currentBullet->is_active()){
+    currentBullet->fire(position + scale / 4.0f, direction);
+    Physics::PhysicsEngine::add_dynamicObject(currentBullet);
+//    }
 }
 

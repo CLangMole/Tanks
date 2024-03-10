@@ -106,7 +106,11 @@ template&lt;typename genType &gt; </td></tr>
 <tr class="separator:gacfa12c8889c754846bc20c65d9b5c701"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaee9e865eaa9776370996da2940873fd4"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
 <tr class="memitem:gaee9e865eaa9776370996da2940873fd4"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00247.html#gaee9e865eaa9776370996da2940873fd4">rotate</a> (mat&lt; 4, 4, T, Q &gt; const &amp;m, T angle, vec&lt; 3, T, Q &gt; const &amp;axis)</td></tr>
-<tr class="memdesc:gaee9e865eaa9776370996da2940873fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a rotation 4 * 4 matrix created from an axis vector and an angle.  <a href="a00247.html#gaee9e865eaa9776370996da2940873fd4">More...</a><br /></td></tr>
+<tr class="memdesc:gaee9e865eaa9776370996da2940873fd4">
+    <td class="mdescLeft">&#160;</td>
+    <td class="mdescRight">Builds a orientation 4 * 4 matrix created from an axis vector and an angle. <a
+            href="a00247.html#gaee9e865eaa9776370996da2940873fd4">More...</a><br/></td>
+</tr>
 <tr class="separator:gaee9e865eaa9776370996da2940873fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga05051adbee603fb3c5095d8cf5cc229b"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
 <tr class="memitem:ga05051adbee603fb3c5095d8cf5cc229b"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00247.html#ga05051adbee603fb3c5095d8cf5cc229b">scale</a> (mat&lt; 4, 4, T, Q &gt; const &amp;m, vec&lt; 3, T, Q &gt; const &amp;v)</td></tr>
@@ -307,10 +311,13 @@ template&lt;typename genType &gt; </td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Builds a rotation 4 * 4 matrix created from an axis vector and an angle. </p>
+    <p>Builds a orientation 4 * 4 matrix created from an axis vector and an angle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">m</td><td>Input matrix multiplied by this rotation matrix. </td></tr>
+      <tr>
+          <td class="paramname">m</td>
+          <td>Input matrix multiplied by this orientation matrix.</td>
+      </tr>
     <tr><td class="paramname">angle</td><td>Rotation angle expressed in radians. </td></tr>
     <tr><td class="paramname">axis</td><td>Rotation axis, recommended to be normalized.</td></tr>
   </table>

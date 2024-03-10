@@ -33,15 +33,15 @@ namespace glm
 	/// @addtogroup ext_quaternion_trigonometric
 	/// @{
 
-	/// Returns the quaternion rotation angle.
-	///
+	/// Returns the quaternion orientation angle.
+    ///
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>
 	GLM_FUNC_DECL T angle(qua<T, Q> const& x);
 
-	/// Returns the q rotation axis.
-	///
+    /// Returns the q orientation axis.
+    ///
 	/// @tparam T A floating-point scalar type
 	/// @tparam Q A value from qualifier enum
 	template<typename T, qualifier Q>

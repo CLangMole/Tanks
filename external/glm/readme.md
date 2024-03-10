@@ -227,7 +227,7 @@ glm::mat4 camera(float Translate, glm::vec2 const& Rotate)
 - Improved exponential function test coverage
 - Enabled warnings as error with Clang unit tests
 - Conan package is an external repository: https://github.com/bincrafters/conan-glm
-- Clarify quat_cast documentation, applying on pure rotation matrices #759
+- Clarify quat_cast documentation, applying on pure orientation matrices #759
 
 #### Fixes:
 - Removed doxygen references to GTC_half_float which was removed in 0.9.4
@@ -616,7 +616,7 @@ glm::mat4 camera(float Translate, glm::vec2 const& Rotate)
 - Fixed GTX_color_space - saturation #195
 - Fixed glm::isinf and glm::isnan for with Android NDK 9d #191
 - Fixed builtin GLM_ARCH_SSE4 #204
-- Optimized Quaternion vector rotation #205
+- Optimized Quaternion vector orientation #205
 - Fixed missing doxygen @endcond tag #211
 - Fixed instruction set detection with Clang #158
 - Fixed orientate3 function #207
@@ -680,7 +680,7 @@ glm::mat4 camera(float Translate, glm::vec2 const& Rotate)
 - Added bitfieldInterleave and _mm_bit_interleave_si128 functions
 - Added GTX_scalar_relational
 - Added GTX_dual_quaternion
-- Added rotation function to GTX_quaternion (#22)
+- Added orientation function to GTX_quaternion (#22)
 - Added precision variation of each type
 - Added quaternion comparison functions
 - Fixed GTX_multiple for negative value

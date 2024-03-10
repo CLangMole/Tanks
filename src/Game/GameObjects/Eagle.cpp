@@ -6,7 +6,7 @@ Eagle::Eagle(const glm::vec2 &position, const glm::vec2 &scale, float rotation, 
           sprites{ResourceManager::get_sprite("eagle"),
                   ResourceManager::get_sprite("eagle_dead")},
           currentState(EagleState::Alive) {
-
+    colliders.emplace_back(glm::vec2(0), scale);
 }
 
 void Eagle::render() const {

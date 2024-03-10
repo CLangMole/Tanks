@@ -183,7 +183,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                T <span class="keyword">const</span>&amp; a);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, qualifier Q&gt;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        GLM_FUNC_DECL qua&lt;T, Q&gt; <a class="code" href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">rotation</a>(</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; GLM_FUNC_DECL qua&lt;T, Q&gt; <a
+        class="code" href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">orientation</a>(
+</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                vec&lt;3, T, Q&gt; <span class="keyword">const</span>&amp; orig,</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                vec&lt;3, T, Q&gt; <span class="keyword">const</span>&amp; dest);</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
@@ -194,9 +196,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#include &quot;quaternion.inl&quot;</span></div>
 <div class="ttc" id="a00299_html_ga1113212d9bdefc2e31ad40e5bbb506f3"><div class="ttname"><a href="a00299.html#ga1113212d9bdefc2e31ad40e5bbb506f3">glm::mat4_cast</a></div><div class="ttdeci">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt; mat4_cast(qua&lt; T, Q &gt; const &amp;x)</div><div class="ttdoc">Converts a quaternion to a 4 * 4 matrix. </div></div>
-<div class="ttc" id="a00352_html_gadc576cc957adc2a568cdcbc3799175bc"><div class="ttname"><a href="a00352.html#gadc576cc957adc2a568cdcbc3799175bc">glm::shortMix</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; shortMix(qua&lt; T, Q &gt; const &amp;x, qua&lt; T, Q &gt; const &amp;y, T const &amp;a)</div><div class="ttdoc">Quaternion interpolation using the rotation short path. </div></div>
+    <div class="ttc" id="a00352_html_gadc576cc957adc2a568cdcbc3799175bc">
+        <div class="ttname"><a href="a00352.html#gadc576cc957adc2a568cdcbc3799175bc">glm::shortMix</a></div>
+        <div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; shortMix(qua&lt; T, Q &gt; const &amp;x, qua&lt; T, Q &gt;
+            const &amp;y, T const &amp;a)
+        </div>
+        <div class="ttdoc">Quaternion interpolation using the orientation short path.</div>
+    </div>
 <div class="ttc" id="a00352_html_ga5ee8332600b2aca3a77622a28d857b55"><div class="ttname"><a href="a00352.html#ga5ee8332600b2aca3a77622a28d857b55">glm::quat_identity</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; quat_identity()</div><div class="ttdoc">Create an identity quaternion. </div></div>
-<div class="ttc" id="a00299_html_ga1108a4ab88ca87bac321454eea7702f8"><div class="ttname"><a href="a00299.html#ga1108a4ab88ca87bac321454eea7702f8">glm::quat_cast</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; quat_cast(mat&lt; 3, 3, T, Q &gt; const &amp;x)</div><div class="ttdoc">Converts a pure rotation 3 * 3 matrix to a quaternion. </div></div>
+    <div class="ttc" id="a00299_html_ga1108a4ab88ca87bac321454eea7702f8">
+        <div class="ttname"><a href="a00299.html#ga1108a4ab88ca87bac321454eea7702f8">glm::quat_cast</a></div>
+        <div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; quat_cast(mat&lt; 3, 3, T, Q &gt; const &amp;x)</div>
+        <div class="ttdoc">Converts a pure orientation 3 * 3 matrix to a quaternion.</div>
+    </div>
 <div class="ttc" id="a00352_html_gacc5cd5f3e78de61d141c2355417424de"><div class="ttname"><a href="a00352.html#gacc5cd5f3e78de61d141c2355417424de">glm::intermediate</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; intermediate(qua&lt; T, Q &gt; const &amp;prev, qua&lt; T, Q &gt; const &amp;curr, qua&lt; T, Q &gt; const &amp;next)</div><div class="ttdoc">Returns an intermediate control point for squad interpolation. </div></div>
 <div class="ttc" id="a00299_html_ga333ab70047fbe4132406100c292dbc89"><div class="ttname"><a href="a00299.html#ga333ab70047fbe4132406100c292dbc89">glm::mat3_cast</a></div><div class="ttdeci">GLM_FUNC_DECL mat&lt; 3, 3, T, Q &gt; mat3_cast(qua&lt; T, Q &gt; const &amp;x)</div><div class="ttdoc">Converts a quaternion to a 3 * 3 matrix. </div></div>
 <div class="ttc" id="a00352_html_gadfa2c77094e8cc9adad321d938855ffb"><div class="ttname"><a href="a00352.html#gadfa2c77094e8cc9adad321d938855ffb">glm::toMat4</a></div><div class="ttdeci">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt; toMat4(qua&lt; T, Q &gt; const &amp;x)</div><div class="ttdoc">Converts a quaternion to a 4 * 4 matrix. </div><div class="ttdef"><b>Definition:</b> <a href="a00126_source.html#l00120">gtx/quaternion.hpp:120</a></div></div>
@@ -205,7 +217,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="a00352_html_ga0b9bf3459e132ad8a18fe970669e3e35"><div class="ttname"><a href="a00352.html#ga0b9bf3459e132ad8a18fe970669e3e35">glm::squad</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; squad(qua&lt; T, Q &gt; const &amp;q1, qua&lt; T, Q &gt; const &amp;q2, qua&lt; T, Q &gt; const &amp;s1, qua&lt; T, Q &gt; const &amp;s2, T const &amp;h)</div><div class="ttdoc">Compute a point on a path according squad equation. </div></div>
 <div class="ttc" id="a00352_html_ga9f5f77255756e5668dfee7f0d07ed021"><div class="ttname"><a href="a00352.html#ga9f5f77255756e5668dfee7f0d07ed021">glm::cross</a></div><div class="ttdeci">GLM_FUNC_DECL vec&lt; 3, T, Q &gt; cross(vec&lt; 3, T, Q &gt; const &amp;v, qua&lt; T, Q &gt; const &amp;q)</div><div class="ttdoc">Compute a cross product between a vector and a quaternion. </div></div>
 <div class="ttc" id="a00352_html_ga5eb36f51e1638e710451eba194dbc011"><div class="ttname"><a href="a00352.html#ga5eb36f51e1638e710451eba194dbc011">glm::toQuat</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; toQuat(mat&lt; 4, 4, T, Q &gt; const &amp;x)</div><div class="ttdoc">Converts a 4 * 4 matrix to a quaternion. </div><div class="ttdef"><b>Definition:</b> <a href="a00126_source.html#l00134">gtx/quaternion.hpp:134</a></div></div>
-<div class="ttc" id="a00352_html_ga03e61282831cc3f52cc76f72f52ad2c5"><div class="ttname"><a href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">glm::rotation</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; rotation(vec&lt; 3, T, Q &gt; const &amp;orig, vec&lt; 3, T, Q &gt; const &amp;dest)</div><div class="ttdoc">Compute the rotation between two vectors. </div></div>
+    <div class="ttc" id="a00352_html_ga03e61282831cc3f52cc76f72f52ad2c5">
+        <div class="ttname"><a href="a00352.html#ga03e61282831cc3f52cc76f72f52ad2c5">glm::orientation</a></div>
+        <div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; orientation(vec&lt; 3, T, Q &gt; const &amp;orig, vec&lt; 3,
+            T, Q &gt; const &amp;dest)
+        </div>
+        <div class="ttdoc">Compute the orientation between two vectors.</div>
+    </div>
 <div class="ttc" id="a00352_html_gafcb78dfff45fbf19a7fcb2bd03fbf196"><div class="ttname"><a href="a00352.html#gafcb78dfff45fbf19a7fcb2bd03fbf196">glm::rotate</a></div><div class="ttdeci">GLM_FUNC_DECL vec&lt; 4, T, Q &gt; rotate(qua&lt; T, Q &gt; const &amp;q, vec&lt; 4, T, Q &gt; const &amp;v)</div><div class="ttdoc">Rotates a 4 components vector by a quaternion. </div></div>
 <div class="ttc" id="a00352_html_ga264e10708d58dd0ff53b7902a2bd2561"><div class="ttname"><a href="a00352.html#ga264e10708d58dd0ff53b7902a2bd2561">glm::fastMix</a></div><div class="ttdeci">GLM_FUNC_DECL qua&lt; T, Q &gt; fastMix(qua&lt; T, Q &gt; const &amp;x, qua&lt; T, Q &gt; const &amp;y, T const &amp;a)</div><div class="ttdoc">Quaternion normalized linear interpolation. </div></div>
 <div class="ttc" id="a00352_html_ga58a609b1b8ab965f5df2702e8ca4e75b"><div class="ttname"><a href="a00352.html#ga58a609b1b8ab965f5df2702e8ca4e75b">glm::length2</a></div><div class="ttdeci">GLM_FUNC_DECL T length2(qua&lt; T, Q &gt; const &amp;q)</div><div class="ttdoc">Returns the squared length of x. </div></div>

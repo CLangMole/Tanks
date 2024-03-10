@@ -64,10 +64,10 @@ namespace glm
 	GLM_FUNC_DECL mat<4, 4, T, Q> translate(
 		mat<4, 4, T, Q> const& m, vec<3, T, Q> const& v);
 
-	/// Builds a rotation 4 * 4 matrix created from an axis vector and an angle.
-	///
-	/// @param m Input matrix multiplied by this rotation matrix.
-	/// @param angle Rotation angle expressed in radians.
+	/// Builds a orientation 4 * 4 matrix created from an axis vector and an angle.
+    ///
+    /// @param m Input matrix multiplied by this orientation matrix.
+    /// @param angle Rotation angle expressed in radians.
 	/// @param axis Rotation axis, recommended to be normalized.
 	///
 	/// @tparam T A floating-point scalar type

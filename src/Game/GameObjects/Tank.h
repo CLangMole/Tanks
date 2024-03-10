@@ -8,6 +8,7 @@
 #include "../../Renderer/SpriteAnimator.h"
 #include "IGameObject.h"
 #include "../../System/Timer.h"
+#include "Bullet.h"
 
 class Tank : public IGameObject
 {
@@ -35,6 +36,8 @@ public:
     [[nodiscard]] double get_maxVelocity() const {
         return maxVelocity;
     };
+
+    void fire();
 
 private:
 
@@ -66,5 +69,7 @@ private:
 
     Timer respawnTimer;
     Timer shieldTimer;
+
+    std::shared_ptr<Bullet> currentBullet;
 };
 

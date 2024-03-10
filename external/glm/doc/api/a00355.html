@@ -89,7 +89,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Functions</h2></td></tr>
 <tr class="memitem:ga50efd7ebca0f7a603bb3cc11e34c708d"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
 <tr class="memitem:ga50efd7ebca0f7a603bb3cc11e34c708d"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL mat&lt; 4, 4, T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00355.html#ga50efd7ebca0f7a603bb3cc11e34c708d">rotateNormalizedAxis</a> (mat&lt; 4, 4, T, Q &gt; const &amp;m, T const &amp;angle, vec&lt; 3, T, Q &gt; const &amp;axis)</td></tr>
-<tr class="memdesc:ga50efd7ebca0f7a603bb3cc11e34c708d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a rotation 4 * 4 matrix created from a normalized axis and an angle.  <a href="a00355.html#ga50efd7ebca0f7a603bb3cc11e34c708d">More...</a><br /></td></tr>
+<tr class="memdesc:ga50efd7ebca0f7a603bb3cc11e34c708d">
+    <td class="mdescLeft">&#160;</td>
+    <td class="mdescRight">Builds a orientation 4 * 4 matrix created from a normalized axis and an angle. <a
+            href="a00355.html#ga50efd7ebca0f7a603bb3cc11e34c708d">More...</a><br/></td>
+</tr>
 <tr class="separator:ga50efd7ebca0f7a603bb3cc11e34c708d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga08f9c5411437d528019a25bfc01473d1"><td class="memTemplParams" colspan="2">template&lt;typename T , qualifier Q&gt; </td></tr>
 <tr class="memitem:ga08f9c5411437d528019a25bfc01473d1"><td class="memTemplItemLeft" align="right" valign="top">GLM_FUNC_DECL qua&lt; T, Q &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a00355.html#ga08f9c5411437d528019a25bfc01473d1">rotateNormalizedAxis</a> (qua&lt; T, Q &gt; const &amp;q, T const &amp;angle, vec&lt; 3, T, Q &gt; const &amp;axis)</td></tr>
@@ -130,10 +134,13 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Builds a rotation 4 * 4 matrix created from a normalized axis and an angle. </p>
+    <p>Builds a orientation 4 * 4 matrix created from a normalized axis and an angle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">m</td><td>Input matrix multiplied by this rotation matrix. </td></tr>
+      <tr>
+          <td class="paramname">m</td>
+          <td>Input matrix multiplied by this orientation matrix.</td>
+      </tr>
     <tr><td class="paramname">angle</td><td>Rotation angle expressed in radians. </td></tr>
     <tr><td class="paramname">axis</td><td>Rotation axis, must be normalized. </td></tr>
   </table>
@@ -190,7 +197,10 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">q</td><td>Source orientation </td></tr>
     <tr><td class="paramname">angle</td><td>Angle expressed in radians. </td></tr>
-    <tr><td class="paramname">axis</td><td>Normalized axis of the rotation, must be normalized.</td></tr>
+      <tr>
+          <td class="paramname">axis</td>
+          <td>Normalized axis of the orientation, must be normalized.</td>
+      </tr>
   </table>
   </dd>
 </dl>

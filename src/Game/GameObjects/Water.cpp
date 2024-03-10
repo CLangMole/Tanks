@@ -7,7 +7,7 @@ Water::Water(const glm::vec2 &position, const glm::vec2 &scale, float rotation, 
           spriteAnimator(sprite),
           blockOffsets{glm::vec2(0, scale.y / 2), glm::vec2(scale.x / 2, scale.y / 2), glm::vec2(0),
                        glm::vec2(scale.x / 2, 0)} {
-
+    colliders.emplace_back(glm::vec2(0), scale);
 }
 
 void Water::render_waterPart(Water::WaterPartLocation partLocation) const {
