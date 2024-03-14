@@ -2,7 +2,7 @@
 #include "../../Resources/ResourceManager.h"
 
 ConcreteWall::ConcreteWall(WallType wallType, const glm::vec2 &position, const glm::vec2 &scale, float rotation,
-                           float layer) : IGameObject(position, scale, rotation, layer),
+                           float layer) : IGameObject(ObjectType::ConcreteWall, position, scale, rotation, layer),
                                           currentPartState{ConcretePartState::Destroyed,
                                                            ConcretePartState::Destroyed,
                                                            ConcretePartState::Destroyed,

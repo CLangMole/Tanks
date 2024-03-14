@@ -20,9 +20,9 @@ public:
     Water(const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer);
 
     void render() const override;
-
     void update(double delta) override;
 
+    bool collides(ObjectType type) override;
 private:
     std::shared_ptr<RenderEngine::Sprite> sprite;
     RenderEngine::SpriteAnimator spriteAnimator;

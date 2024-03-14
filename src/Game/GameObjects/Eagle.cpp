@@ -2,7 +2,7 @@
 #include "../../Resources/ResourceManager.h"
 
 Eagle::Eagle(const glm::vec2 &position, const glm::vec2 &scale, float rotation, float layer)
-        : IGameObject(position, scale, rotation, layer),
+        : IGameObject(ObjectType::Eagle, position, scale, rotation, layer),
           sprites{ResourceManager::get_sprite("eagle"),
                   ResourceManager::get_sprite("eagle_dead")},
           currentState(EagleState::Alive) {

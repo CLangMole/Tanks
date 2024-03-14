@@ -2,7 +2,7 @@
 #include "../../Resources/ResourceManager.h"
 
 Tank::Tank(double maxVelocity, const glm::vec2 &position, const glm::vec2 &scale, float layer)
-        : IGameObject(position, scale, 0.0f, layer),
+        : IGameObject(ObjectType::Tank, position, scale, 0.0f, layer),
           spriteTop(ResourceManager::get_sprite("player2_green_tank_type1_sprite_top")),
           spriteBottom(ResourceManager::get_sprite("player2_green_tank_type1_sprite_bottom")),
           spriteLeft(ResourceManager::get_sprite("player2_green_tank_type1_sprite_left")),
@@ -12,7 +12,9 @@ Tank::Tank(double maxVelocity, const glm::vec2 &position, const glm::vec2 &scale
           spriteAnimatorLeft(this->spriteLeft), spriteAnimatorRight(this->spriteRight),
           spriteAnimatorRespawn(this->spriteRespawn), spriteAnimatorShield(this->spriteShield),
           maxVelocity(maxVelocity), currentRotation(Rotation::Top), isRespawning(true), hasShield(false),
-          currentBullet(std::make_shared<Bullet>(0.1, this->position + this->scale / 4.0f, this->scale / 2.0f, layer)) {
+          currentBullet(
+                  std::make_shared<Bullet>(0.1, this->position + this->scale / 4.0f, this->scale / 2.0f, this->scale,
+                                           layer)) {
     respawnTimer.on_complete(
             [&]() {
                 isRespawning = false;
@@ -30,6 +32,7 @@ Tank::Tank(double maxVelocity, const glm::vec2 &position, const glm::vec2 &scale
     respawnTimer.start(1500);
 
     colliders.emplace_back(glm::vec2(0), scale);
+    Physics::PhysicsEngine::add_dynamicObject(currentBullet);
 }
 
 void Tank::render() const {
@@ -62,6 +65,10 @@ void Tank::render() const {
 }
 
 void Tank::update(const double delta) {
+    if (currentBullet->is_active()) {
+        currentBullet->update(delta);
+    }
+
     if (isRespawning) {
         spriteAnimatorRespawn.update(delta);
         respawnTimer.update(delta);
@@ -128,9 +135,8 @@ void Tank::set_velocity(double newVelocity) {
 }
 
 void Tank::fire() {
-//    if (currentBullet->is_active()){
-    currentBullet->fire(position + scale / 4.0f, direction);
-    Physics::PhysicsEngine::add_dynamicObject(currentBullet);
-//    }
+    if (!isRespawning && !currentBullet->is_active()) {
+        currentBullet->fire(position + scale / 4.0f + scale * direction / 4.0f, direction);
+    }
 }
 
