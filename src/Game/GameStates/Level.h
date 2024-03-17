@@ -2,23 +2,24 @@
 
 #include <vector>
 #include <memory>
-#include <glm/vec2.hpp>
-#include "GameObjects/IGameObject.h"
+#include "glm/vec2.hpp"
+#include "../GameObjects/IGameObject.h"
+#include "IGameState.h"
 
-class Level
+class Level : public IGameState
 {
 public:
     static constexpr unsigned int BLOCK_SIZE = 16;
 
     explicit Level(const std::vector<std::string> &description);
 
-    void render() const;
+    void render() const override;
 
-    void update(double delta);
+    void update(double delta) override;
 
-    [[nodiscard]] size_t get_width() const;
+    [[nodiscard]] unsigned int get_width() const override;
 
-    [[nodiscard]] size_t get_height() const;
+    [[nodiscard]] unsigned int get_height() const override;
 
     [[nodiscard]] const glm::ivec2 &getPlayerRespawn1() const {
         return playerRespawn1;

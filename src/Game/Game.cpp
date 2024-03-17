@@ -7,7 +7,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-Game::Game(const glm::ivec2 &windowSize) : currentGameState(GameState::Active), windowSize(windowSize), keys(){
+Game::Game(const glm::ivec2 &windowSize) : currentGameState(GameState::StartScreen), windowSize(windowSize), keys() {
     keys.fill(false);
 }
 
@@ -20,6 +20,7 @@ bool Game::init() {
         return false;
     }
 
+    startScreen = std::make_shared<StartScreen>(ResourceManager::get_startScreen());
     level = std::make_shared<Level>(ResourceManager::get_levels()[0]); //TODO Fix depth test issue
     windowSize.x = static_cast<int>(level->get_width()); //TODO Fix viewport
     windowSize.y = static_cast<int>(level->get_height());
@@ -40,42 +41,75 @@ bool Game::init() {
 }
 
 void Game::render() {
-    if (tank) {
-        tank->render();
-    }
+    switch (currentGameState) {
+        case GameState::StartScreen:
+            startScreen->render();
+            break;
+        case GameState::Level:
+            if (tank) {
+                tank->render();
+            }
 
-    if (level) {
-        level->render();
+            if (level) {
+                level->render();
+            }
+            break;
+        case GameState::LevelStart:
+            break;
+        case GameState::Paused:
+            break;
+        case GameState::Scores:
+            break;
+        case GameState::GameOver:
+            break;
     }
 }
 
 void Game::update(const double delta) {
-    if (level) {
-        level->update(delta);
-    }
+    switch (currentGameState) {
+        case GameState::StartScreen:
+            if (keys[GLFW_KEY_ENTER]) {
+                currentGameState = GameState::Level;
+            }
+            break;
+        case GameState::LevelStart:
+            break;
+        case GameState::Level:
+            if (level) {
+                level->update(delta);
+            }
 
-    if (tank) {
-        if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP]) {
-            tank->set_rotation(Tank::Rotation::Top);
-            tank->set_velocity(tank->get_maxVelocity());
-        } else if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN]) {
-            tank->set_rotation(Tank::Rotation::Bottom);
-            tank->set_velocity(tank->get_maxVelocity());
-        } else if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT]) {
-            tank->set_rotation(Tank::Rotation::Left);
-            tank->set_velocity(tank->get_maxVelocity());
-        } else if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT]) {
-            tank->set_rotation(Tank::Rotation::Right);
-            tank->set_velocity(tank->get_maxVelocity());
-        } else {
-            tank->set_velocity(0);
-        }
+            if (tank) {
+                if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP]) {
+                    tank->set_rotation(Tank::Rotation::Top);
+                    tank->set_velocity(tank->get_maxVelocity());
+                } else if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN]) {
+                    tank->set_rotation(Tank::Rotation::Bottom);
+                    tank->set_velocity(tank->get_maxVelocity());
+                } else if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT]) {
+                    tank->set_rotation(Tank::Rotation::Left);
+                    tank->set_velocity(tank->get_maxVelocity());
+                } else if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT]) {
+                    tank->set_rotation(Tank::Rotation::Right);
+                    tank->set_velocity(tank->get_maxVelocity());
+                } else {
+                    tank->set_velocity(0);
+                }
 
-        if (tank && keys[GLFW_KEY_SPACE]) {
-            tank->fire();
-        }
+                if (tank && keys[GLFW_KEY_SPACE]) {
+                    tank->fire();
+                }
 
-        tank->update(delta);
+                tank->update(delta);
+            }
+
+            break;
+        case GameState::Paused:
+            break;
+        case GameState::Scores:
+            break;
+        case GameState::GameOver:
+            break;
     }
 }
 
@@ -83,11 +117,41 @@ void Game::set_key(const int key, const int action) {
     keys[key] = action;
 }
 
-size_t Game::get_levelWidth() const {
-    return level->get_width();
+unsigned int Game::get_stateWidth() const {
+    switch (currentGameState) {
+        case GameState::StartScreen:
+            return startScreen->get_width();
+        case GameState::Level:
+            return level->get_width();
+        case GameState::LevelStart:
+            return 0;
+        case GameState::Paused:
+            return 0;
+        case GameState::Scores:
+            return 0;
+        case GameState::GameOver:
+            return 0;
+    }
+
+    return 0;
 }
 
-size_t Game::get_levelHeight() const {
-    return level->get_height();
+unsigned int Game::get_stateHeight() const {
+    switch (currentGameState) {
+        case GameState::StartScreen:
+            return startScreen->get_height();
+        case GameState::Level:
+            return level->get_height();
+        case GameState::LevelStart:
+            return 0;
+        case GameState::Paused:
+            return 0;
+        case GameState::Scores:
+            return 0;
+        case GameState::GameOver:
+            return 0;
+    }
+
+    return 0;
 }
 

@@ -1,12 +1,12 @@
 #include "Level.h"
 
-#include "GameObjects/BrickWall.h"
-#include "GameObjects/ConcreteWall.h"
-#include "GameObjects/Bush.h"
-#include "GameObjects/Ice.h"
-#include "GameObjects/Water.h"
-#include "GameObjects/Eagle.h"
-#include "GameObjects/Border.h"
+#include "../GameObjects/BrickWall.h"
+#include "../GameObjects/ConcreteWall.h"
+#include "../GameObjects/Bush.h"
+#include "../GameObjects/Ice.h"
+#include "../GameObjects/Water.h"
+#include "../GameObjects/Eagle.h"
+#include "../GameObjects/Border.h"
 
 #include <cmath>
 #include <iostream>
@@ -146,14 +146,6 @@ void Level::update(const double delta) {
     }
 }
 
-size_t Level::get_width() const {
-    return (widthBlocks + 3) * BLOCK_SIZE;
-}
-
-size_t Level::get_height() const {
-    return (heightBlocks + 1) * BLOCK_SIZE;
-}
-
 std::vector<std::shared_ptr<IGameObject>>
 Level::get_objectsInArea(const glm::vec2 &bottomLeft, const glm::vec2 &topRight) const {
     std::vector<std::shared_ptr<IGameObject>> output;
@@ -197,4 +189,12 @@ Level::get_objectsInArea(const glm::vec2 &bottomLeft, const glm::vec2 &topRight)
     }
 
     return output;
+}
+
+unsigned int Level::get_width() const {
+    return static_cast<unsigned int>((widthBlocks + 3) * BLOCK_SIZE);
+}
+
+unsigned int Level::get_height() const {
+    return static_cast<unsigned int>((heightBlocks + 1) * BLOCK_SIZE);
 }

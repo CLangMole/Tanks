@@ -9,7 +9,28 @@ add_executable(Tanks src/main.cpp
         src/Resources/stb_image.h
         src/Renderer/Texture2D.cpp src/Renderer/Texture2D.h
         src/Renderer/Sprite.cpp src/Renderer/Sprite.h
-        src/Game/Game.cpp src/Game/Game.h src/Game/GameObjects/Tank.cpp src/Game/GameObjects/Tank.h src/Renderer/VertexBuffer.cpp src/Renderer/VertexBuffer.h src/Renderer/IndexBuffer.cpp src/Renderer/IndexBuffer.h src/Renderer/VertexArray.cpp src/Renderer/VertexArray.h src/Renderer/VertexBufferLayout.cpp src/Renderer/VertexBufferLayout.h src/Renderer/Renderer.cpp src/Renderer/Renderer.h src/Game/GameObjects/IGameObject.cpp src/Game/GameObjects/IGameObject.h src/Game/Level.cpp src/Game/Level.h src/Game/GameObjects/BrickWall.cpp src/Game/GameObjects/BrickWall.h src/Renderer/SpriteAnimator.cpp src/Renderer/SpriteAnimator.h src/Game/GameObjects/ConcreteWall.cpp src/Game/GameObjects/ConcreteWall.h src/Game/GameObjects/Bush.cpp src/Game/GameObjects/Bush.h src/Game/GameObjects/Ice.cpp src/Game/GameObjects/Ice.h src/Game/GameObjects/Water.cpp src/Game/GameObjects/Water.h src/Game/GameObjects/Eagle.cpp src/Game/GameObjects/Eagle.h src/Game/GameObjects/Border.cpp src/Game/GameObjects/Border.h src/System/Timer.cpp src/System/Timer.h src/Physics/PhysicsEngine.cpp src/Physics/PhysicsEngine.h src/Game/GameObjects/Bullet.cpp src/Game/GameObjects/Bullet.h)
+        src/Game/Game.cpp src/Game/Game.h
+        src/Game/GameObjects/Tank.cpp src/Game/GameObjects/Tank.h
+        src/Renderer/VertexBuffer.cpp src/Renderer/VertexBuffer.h
+        src/Renderer/IndexBuffer.cpp src/Renderer/IndexBuffer.h
+        src/Renderer/VertexArray.cpp src/Renderer/VertexArray.h
+        src/Renderer/VertexBufferLayout.cpp src/Renderer/VertexBufferLayout.h
+        src/Renderer/Renderer.cpp src/Renderer/Renderer.h
+        src/Game/GameObjects/IGameObject.cpp src/Game/GameObjects/IGameObject.h
+        src/Game/GameStates/Level.cpp src/Game/GameStates/Level.h
+        src/Game/GameObjects/BrickWall.cpp src/Game/GameObjects/BrickWall.h
+        src/Renderer/SpriteAnimator.cpp src/Renderer/SpriteAnimator.h
+        src/Game/GameObjects/ConcreteWall.cpp src/Game/GameObjects/ConcreteWall.h
+        src/Game/GameObjects/Bush.cpp src/Game/GameObjects/Bush.h
+        src/Game/GameObjects/Ice.cpp src/Game/GameObjects/Ice.h
+        src/Game/GameObjects/Water.cpp src/Game/GameObjects/Water.h
+        src/Game/GameObjects/Eagle.cpp src/Game/GameObjects/Eagle.h
+        src/Game/GameObjects/Border.cpp src/Game/GameObjects/Border.h
+        src/System/Timer.cpp src/System/Timer.h
+        src/Physics/PhysicsEngine.cpp src/Physics/PhysicsEngine.h
+        src/Game/GameObjects/Bullet.cpp src/Game/GameObjects/Bullet.h
+        src/Game/GameStates/IGameState.h
+        src/Game/GameStates/StartScreen.cpp src/Game/GameStates/StartScreen.h)
 
 add_subdirectory(external/glfw-3.3.9)
 target_link_libraries(Tanks glfw)

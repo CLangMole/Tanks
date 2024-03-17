@@ -16,6 +16,7 @@ ResourceManager::texturesMap ResourceManager::textures;
 ResourceManager::spritesMap ResourceManager::sprites;
 std::string ResourceManager::resourcePath;
 std::vector<std::vector<std::string>> ResourceManager::levels;
+std::vector<std::string> ResourceManager::startScreen;
 
 void ResourceManager::set_executablePath(const std::string &path) {
     size_t found = path.find_last_of("/\\");
@@ -262,6 +263,26 @@ bool ResourceManager::load_json(const std::string &path) {
                 }
 
                 sprite->addFrames(std::move(framesDescriptions));
+            }
+        }
+    }
+
+    auto startScreenIt = document.FindMember("startScreen");
+    if (startScreenIt != document.MemberEnd()) {
+        const auto descriptionsArray = startScreenIt->value.GetArray();
+        startScreen.reserve(descriptionsArray.Size());
+        size_t maxLength = 0;
+
+        for (const auto &currentRow: descriptionsArray) {
+            startScreen.emplace_back(currentRow.GetString());
+            if (maxLength < startScreen.back().length()) {
+                maxLength = startScreen.back().length();
+            }
+        }
+
+        for (auto &currentRow: startScreen) {
+            while (currentRow.length() < maxLength) {
+                currentRow.append("F");
             }
         }
     }

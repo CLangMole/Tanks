@@ -56,6 +56,10 @@ public:
         return levels;
     };
 
+    static const std::vector<std::string> &get_startScreen() {
+        return startScreen;
+    }
+
     static bool load_json(const std::string &path);
 
 private:
@@ -72,4 +76,5 @@ private:
     static spritesMap sprites;
     static std::string resourcePath;
     static std::vector<std::vector<std::string>> levels;
+    static std::vector<std::string> startScreen;
 };

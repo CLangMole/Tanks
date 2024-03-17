@@ -6,7 +6,8 @@
 #include <memory>
 
 #include "GameObjects/Tank.h"
-#include "Level.h"
+#include "GameStates/Level.h"
+#include "GameStates/StartScreen.h"
 
 class Game
 {
@@ -23,17 +24,21 @@ public:
 
     void set_key(int key, int action);
 
-    [[nodiscard]] size_t get_levelWidth() const;
+    [[nodiscard]] unsigned int get_stateWidth() const;
 
-    [[nodiscard]] size_t get_levelHeight() const;
+    [[nodiscard]] unsigned int get_stateHeight() const;
 
 private:
     std::array<bool, 349> keys;
 
     enum class GameState
     {
-        Active,
-        Paused
+        StartScreen,
+        LevelStart,
+        Level,
+        Paused,
+        Scores,
+        GameOver
     };
 
     GameState currentGameState;
@@ -42,4 +47,5 @@ private:
 
     std::shared_ptr<Tank> tank;
     std::shared_ptr<Level> level;
+    std::shared_ptr<StartScreen> startScreen;
 };
