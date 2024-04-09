@@ -112,6 +112,8 @@ void PhysicsEngine::add_dynamicObject(std::shared_ptr<IGameObject> object) {
 
 void PhysicsEngine::set_currentLevel(std::shared_ptr<Level> level) {
     currentLevel.swap(level);
+    dynamicObjects.clear();
+    currentLevel->init_physics();
 }
 
 bool PhysicsEngine::has_intersection(const Collider &lCollider, const glm::vec2 &lPosition,

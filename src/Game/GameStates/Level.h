@@ -5,6 +5,7 @@
 #include "glm/vec2.hpp"
 #include "../GameObjects/IGameObject.h"
 #include "IGameState.h"
+#include "../GameObjects/Tank.h"
 
 class Level : public IGameState
 {
@@ -16,6 +17,10 @@ public:
     void render() const override;
 
     void update(double delta) override;
+
+    void init_physics();
+
+    void handle_input(std::array<bool, 349> &keys) override;
 
     [[nodiscard]] unsigned int get_width() const override;
 
@@ -43,4 +48,5 @@ private:
     glm::ivec2 playerRespawn2{};
 
     std::vector<std::shared_ptr<IGameObject>> gameObjects;
+    std::shared_ptr<Tank> tank;
 };

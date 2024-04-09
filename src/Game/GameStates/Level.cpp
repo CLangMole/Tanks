@@ -8,6 +8,7 @@
 #include "../GameObjects/Eagle.h"
 #include "../GameObjects/Border.h"
 
+#include <GLFW/glfw3.h>
 #include <cmath>
 #include <iostream>
 #include <algorithm>
@@ -136,12 +137,46 @@ void Level::render() const {
             currentObject->render();
         }
     }
+
+    tank->render();
 }
 
 void Level::update(const double delta) {
     for (const auto &currentObject: gameObjects) {
         if (currentObject) {
             currentObject->update(delta);
+        }
+    }
+
+    tank->update(delta);
+}
+
+void Level::init_physics() {
+    tank = std::make_shared<Tank>(0.05f, getPlayerRespawn1(),
+                                  glm::vec2(Level::BLOCK_SIZE, Level::BLOCK_SIZE), 0.0f);
+    Physics::PhysicsEngine::add_dynamicObject(tank);
+}
+
+void Level::handle_input(std::array<bool, 349> &keys) {
+    if (tank) {
+        if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP]) {
+            tank->set_rotation(Tank::Rotation::Top);
+            tank->set_velocity(tank->get_maxVelocity());
+        } else if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN]) {
+            tank->set_rotation(Tank::Rotation::Bottom);
+            tank->set_velocity(tank->get_maxVelocity());
+        } else if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT]) {
+            tank->set_rotation(Tank::Rotation::Left);
+            tank->set_velocity(tank->get_maxVelocity());
+        } else if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT]) {
+            tank->set_rotation(Tank::Rotation::Right);
+            tank->set_velocity(tank->get_maxVelocity());
+        } else {
+            tank->set_velocity(0);
+        }
+
+        if (tank && keys[GLFW_KEY_SPACE]) {
+            tank->fire();
         }
     }
 }

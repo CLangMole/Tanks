@@ -13,7 +13,7 @@ using namespace std;
 static constexpr unsigned int SCALE = 3;
 static constexpr unsigned int BLOCK_SIZE = 16;
 
-glm::ivec2 windowSize(SCALE * 16 * BLOCK_SIZE, SCALE * 15 * BLOCK_SIZE);
+glm::uvec2 windowSize(SCALE * 16 * BLOCK_SIZE, SCALE * 15 * BLOCK_SIZE);
 std::unique_ptr<Game> game = std::make_unique<Game>(windowSize);
 
 void glfwKeyCallback(GLFWwindow *pWindow, int key, int scanCode, int action, int mode) {
@@ -28,23 +28,7 @@ void glfwWindowSizeCallback(GLFWwindow *pWindow, int height, int width) {
     windowSize.y = height;
     windowSize.x = width;
 
-    const float aspectRatio = static_cast<float>(game->get_stateWidth()) / static_cast<float>(game->get_stateHeight());
-
-    int viewportWidth = windowSize.x;
-    int viewportHeight = windowSize.y;
-
-    int leftOffset = 0;
-    int bottomOffset = 0;
-
-    if (static_cast<float>(windowSize.x) / static_cast<float>(windowSize.y) > aspectRatio) {
-        viewportWidth = static_cast<int>(static_cast<float>(windowSize.y) * aspectRatio);
-        leftOffset = (windowSize.x - viewportWidth) / 2;
-    } else {
-        viewportHeight = static_cast<int>(static_cast<float>(windowSize.x) / aspectRatio);
-        bottomOffset = (windowSize.y - viewportHeight) / 2;
-    }
-
-    RenderEngine::Renderer::set_viewport(viewportHeight, viewportWidth, leftOffset, bottomOffset);
+    game->set_windowSize(windowSize);
 }
 
 int main(int argc, char **argv) {
@@ -59,7 +43,8 @@ int main(int argc, char **argv) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow *window = glfwCreateWindow(windowSize.x, windowSize.y, "Tanks", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(static_cast<int>(windowSize.x), static_cast<int>(windowSize.y), "Tanks",
+                                          nullptr, nullptr);
 
     if (!window) {
         cout << "Failed to create a window" << endl;
@@ -86,8 +71,8 @@ int main(int argc, char **argv) {
         Physics::PhysicsEngine::init();
         game->init();
 
-        glfwSetWindowSize(window, static_cast<int>(3 * game->get_stateWidth()),
-                          static_cast<int>(3 * game->get_stateHeight()));
+//        glfwSetWindowSize(window, static_cast<int>(3 * game->get_stateWidth()),
+//                          static_cast<int>(3 * game->get_stateHeight()));
         auto lastTime = std::chrono::high_resolution_clock::now();
 
         while (!glfwWindowShouldClose(window)) {

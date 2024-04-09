@@ -27,7 +27,7 @@ void Renderer::clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::set_viewport(int height, int width, int xOffset, int yOffset) {
+void Renderer::set_viewport(int width, int height, int xOffset, int yOffset) {
     glViewport(xOffset, yOffset, width, height);
 }
 
