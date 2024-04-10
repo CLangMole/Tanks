@@ -21,7 +21,7 @@ bool Game::init() {
         return false;
     }
 
-    currentGameState = std::make_shared<StartScreen>(ResourceManager::get_startScreen());
+    currentGameState = std::make_shared<StartScreen>(ResourceManager::get_startScreen(), this);
 
     spriteShader->use();
     spriteShader->set_int("tex", 0);
@@ -39,18 +39,8 @@ void Game::render() {
 }
 
 void Game::update(const double delta) {
-    switch (gameState) {
-        case GameState::StartScreen:
-            if (keys[GLFW_KEY_ENTER]) {
-                gameState = GameState::Level;
-                start_level(0);
-            }
-            break;
-        case GameState::Level:
-            currentGameState->handle_input(keys);
-            currentGameState->update(delta);
-            break;
-    }
+    currentGameState->handle_input(keys);
+    currentGameState->update(delta);
 }
 
 void Game::start_level(size_t index) {
@@ -60,8 +50,8 @@ void Game::start_level(size_t index) {
     update_viewport();
 }
 
-void Game::set_windowSize(const glm::uvec2 &startWindowSize) {
-    windowSize = startWindowSize;
+void Game::set_windowSize(const glm::uvec2 &newWindowSize) {
+    windowSize = newWindowSize;
     update_viewport();
 }
 

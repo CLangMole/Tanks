@@ -1,5 +1,9 @@
 #include "StartScreen.h"
+#include "../Game.h"
 #include "../../Resources/ResourceManager.h"
+
+#include <GLFW/glfw3.h>
+#include <array>
 
 std::shared_ptr<RenderEngine::Sprite> get_spriteFromDescription(const char description) {
     switch (description) {
@@ -42,7 +46,20 @@ std::shared_ptr<RenderEngine::Sprite> get_spriteFromDescription(const char descr
     return nullptr;
 }
 
-StartScreen::StartScreen(const std::vector<std::string> &description) {
+StartScreen::StartScreen(const std::vector<std::string> &description, Game *game)
+        : game(game),
+          keyReleased(true),
+          currentMenuSelection(0),
+          menuSprite(std::make_pair(ResourceManager::get_sprite("menu"),
+                                    glm::vec2(11 * BLOCK_SIZE,
+                                              STARTSCREEN_HEIGHT -
+                                              description.size() * BLOCK_SIZE - MENU_HEIGHT -
+                                              5 * BLOCK_SIZE))),
+          tankSprite(ResourceManager::get_sprite("player2_green_tank_type1_sprite_right"),
+                     glm::vec2(8 * BLOCK_SIZE,
+                               menuSprite.second.y + 6 * BLOCK_SIZE -
+                               static_cast<float>(currentMenuSelection) * 2 * BLOCK_SIZE)),
+          tankAnimator(tankSprite.first) {
     if (description.empty()) {
         std::cerr << "Empty start screen description!" << std::endl;
     }
@@ -70,10 +87,49 @@ void StartScreen::render() const {
             currentSprite.first->render(currentSprite.second, glm::vec2(BLOCK_SIZE), 0.0f);
         }
     }
+
+    menuSprite.first->render(menuSprite.second, glm::vec2(MENU_WIDTH, MENU_HEIGHT), 0.0f);
+    tankSprite.first->render(
+            glm::vec2(tankSprite.second.x,
+                      tankSprite.second.y - static_cast<float>(currentMenuSelection) * 2 * BLOCK_SIZE),
+            glm::vec2(TANK_SIZE), 0.0f, 0.0f, tankAnimator.get_currentFrame());
 }
 
 void StartScreen::update(double delta) {
+    tankAnimator.update(delta);
+}
 
+void StartScreen::handle_input(const std::array<bool, 349> &keys) {
+    if (!keys[GLFW_KEY_W] && !keys[GLFW_KEY_S]) {
+        keyReleased = true;
+    }
+
+    if (keyReleased) {
+        if (keys[GLFW_KEY_W]) {
+            keyReleased = false;
+            --currentMenuSelection;
+
+            if (currentMenuSelection < 0) {
+                currentMenuSelection = 2;
+            }
+        } else if (keys[GLFW_KEY_S]) {
+            keyReleased = false;
+            ++currentMenuSelection;
+
+            if (currentMenuSelection > 2) {
+                currentMenuSelection = 0;
+            }
+        }
+    }
+    if (keys[GLFW_KEY_ENTER]) {
+        switch (currentMenuSelection) {
+            case 0:
+                game->start_level(0);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 unsigned int StartScreen::get_width() const {

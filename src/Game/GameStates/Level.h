@@ -20,7 +20,7 @@ public:
 
     void init_physics();
 
-    void handle_input(std::array<bool, 349> &keys) override;
+    void handle_input(const std::array<bool, 349> &keys) override;
 
     [[nodiscard]] unsigned int get_width() const override;
 

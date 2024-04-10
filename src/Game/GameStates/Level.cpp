@@ -157,7 +157,7 @@ void Level::init_physics() {
     Physics::PhysicsEngine::add_dynamicObject(tank);
 }
 
-void Level::handle_input(std::array<bool, 349> &keys) {
+void Level::handle_input(const std::array<bool, 349> &keys) {
     if (tank) {
         if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP]) {
             tank->set_rotation(Tank::Rotation::Top);

@@ -9,7 +9,7 @@ public:
 
     virtual void update(double delta) = 0;
 
-    virtual void handle_input(std::array<bool, 349> &keys) {};
+    virtual void handle_input(const std::array<bool, 349> &keys) {};
 
     [[nodiscard]] virtual unsigned int get_width() const = 0;
 

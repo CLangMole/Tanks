@@ -17,14 +17,14 @@ public:
     ~Game() = default;
 
     void render();
-
     void update(double delta);
-
     bool init();
+
+    void start_level(size_t index);
 
     void set_key(int key, int action);
 
-    void set_windowSize(const glm::uvec2 &startWindowSize);
+    void set_windowSize(const glm::uvec2 &newWindowSize);
 
     [[nodiscard]] unsigned int get_stateWidth() const;
 
@@ -32,8 +32,6 @@ public:
 
 private:
     std::array<bool, 349> keys;
-
-    void start_level(size_t index);
 
     void update_viewport() const;
 
